@@ -2,7 +2,7 @@
 #include <input.h>
 #include <output.h>
 
-
+//check kommit
 Data::Data()
 {
     //TODO: ввод файлов в inpfile и carfile
