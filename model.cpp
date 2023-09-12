@@ -1,10 +1,13 @@
+
 #include <data.h>
 #include <model.h>
 Model::Model()
 {
- for (int i=0; i<())
+ Data dat;
+ }
+void Model::simulate(){
+    //Прописать таймер!!
 }
-
 Model::~Model()
 {
 }

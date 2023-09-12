@@ -4,5 +4,5 @@ class Car:public Creature
 public:
     Car();
     virtual ~Car();
-protected:    
+      
 };
