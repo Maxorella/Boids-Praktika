@@ -10,7 +10,7 @@ public:
     ~FieldBehaviour();
     void allBehave();
     void allMove();
-    Data* getData(){return &dat;}
+   // Data* getData(){return &dat;}
     vector<Creature*> getNearCreatures(vector<float> pos, float r);
 };
 void FieldBehaviour::allBehave(){
