@@ -2,6 +2,7 @@
 #include <vector>
 #include <fieldb.h>
 #include <data.h>
+#include <car.h>
 using namespace std;
 class Pigeon: public Creature
 {
@@ -10,12 +11,13 @@ private:
     vector<float> speed{0,0};
     vector<float> speedVector{0,0};
     FieldBehaviour* fieldBeh;
+    Data dat;
   //  Data* dat;
     // Each boid attempts to avoid running into other boids. If two or more boids get too close to one another
     //Each boid attempts to match the velocity of other boids inside its visible range.
     // Each boid steers gently toward the center of mass of other boids within its visible range.
 
-    static inline vector<float> coef{0.1, 0.05, 0.02, 0.2}; // sep align cohes turnfactor
+    static inline vector<float> coef{0.1, 0.05, 0.02, 0.2, 1, 0.3}; // sep align cohes turnfactor carDist carDodge
     static inline vector<float> searchRad{3, 5, 10, 20};    // sep align cohes edges
     static inline vector<float> Margin{-30, 30, -30, 30};//left right bottom top
 public:
@@ -29,6 +31,7 @@ public:
     void Cohesion();
     vector<float> getspeed();
     void AvoidEdges();
+    void CarDodge();
 };
 
 Pigeon::Pigeon(vector<float> p, FieldBehaviour* f): pos(p), fieldBeh(f){
@@ -44,6 +47,7 @@ void Pigeon::behave()
    this->Separation();
    this->Cohesion();
    this->AvoidEdges();
+   this->CarDodge();
 }
 
 void Pigeon::move()
@@ -53,6 +57,15 @@ void Pigeon::move()
     pos[1]+=speed[1]* dat.getdeltaTime();
 }
 
+void Pigeon::CarDodge(){
+    Creature* c = dat.getCar();
+    vector<float> carp = c->getpos();
+    if(dat.distance(pos,carp)<coef[4]){
+        speedVector[0]+=carp[0] * (dat.distance(pos,carp)-coef[4])*coef[5];
+        speedVector[1]+=carp[1] * (dat.distance(pos,carp)-coef[4])*coef[5];
+    }
+
+}
 void Pigeon::Separation()
 {
     vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad[0]);
