@@ -2,7 +2,8 @@ class Data;
 class Model
 {
 private:
-    /* data */
+    float timer=0;
+    float sliceTime=40;
 public:
     Model();
     void simulate();

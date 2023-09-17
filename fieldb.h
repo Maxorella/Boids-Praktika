@@ -1,7 +1,7 @@
 #include <data.h>
 #include <creature.h>
 #include <cmath>
-
+#include <vector>
 class FieldBehaviour
 {
 public:

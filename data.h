@@ -1,6 +1,7 @@
 #include <iostream>
 #include <creature.h>
 #include <vector>
+#include <cmath>
 
 class Creature;
 using namespace std;
@@ -8,12 +9,14 @@ using namespace std;
 class Data
 {
 private:
+    static inline float deltaTime=0.05f;
     static vector<Creature*> meadow();
     static inline vector<float> weights{1, 2, 3};
     static vector<Creature*> pigeondata;
     static Creature* car;
-    static vector<vector<float>> inpfile; // - координаты птиц
-    //static vector<vector<float>> carfile;
+    static vector<vector<float> > inpfile; // - координаты птиц
+    static vector<vector<float> > carfile;
+    static int pointCount; 
     static vector<vector<float> > outfile;
     
    // static vector<float>
@@ -26,6 +29,11 @@ public:
     vector<float> getweights(){return weights;}
     void setinpfile(vector<float> v){inpfile.push_back(v);}
     vector<float> getinpfile(int pos){return inpfile[pos];}
+
+    float distance(vector<float> a, vector<float> b ){ return sqrt(pow(a[0]-b[0],2)+pow(a[1]-b[1],2)); }
+    vector<float> getCarPoint(int pos){ return carfile[pos];}
+    int getpointCount(){return pointCount;}
+    float getdeltaTime(){return deltaTime;}
     Data();
     ~Data();
 };

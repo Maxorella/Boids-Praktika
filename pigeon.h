@@ -1,6 +1,7 @@
 #include <creature.h>
 #include <vector>
 #include <fieldb.h>
+#include <data.h>
 using namespace std;
 class Pigeon: public Creature
 {
@@ -23,7 +24,7 @@ public:
     void behave();
     void move();
     vector<float> getpos();
-    void separation();
+    void Separation();
     void Alignment();
     void Cohesion();
     vector<float> getspeed();
@@ -31,7 +32,7 @@ public:
 };
 
 Pigeon::Pigeon(vector<float> p, FieldBehaviour* f): pos(p), fieldBeh(f){
-   // dat=f->getData;
+
 }
 
 vector<float> Pigeon::getpos(){ return pos;}
@@ -39,17 +40,20 @@ vector<float> Pigeon::getspeed(){ return speed;}
 
 void Pigeon::behave()
 {
-   
-
+   this->Alignment();
+   this->Separation();
+   this->Cohesion();
+   this->AvoidEdges();
 }
 
 void Pigeon::move()
 {
-    
-
+    speed=speedVector;
+    pos[0]+=speed[0]* dat.getdeltaTime();
+    pos[1]+=speed[1]* dat.getdeltaTime();
 }
 
-void Pigeon::separation()
+void Pigeon::Separation()
 {
     vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad[0]);
     float closeDx=0;
