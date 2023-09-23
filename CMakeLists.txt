@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.0)
 
 project(Boids VERSION 0.1)
 include_directories("include")

@@ -3,8 +3,11 @@
 #include <iostream>
 #include <istream>
 #include <fstream>
-#include <iostream>
 #include <vector>
 #include <cmath>
+#include <string>
+#include <sstream>
+#include <stdlib.h>
+
 using namespace std;
 #endif

@@ -2,6 +2,8 @@
     #define Creatureh
 #include "ALL.h"
 #include "BASIC.h"
+
+
 class Creature
 {
 public:
