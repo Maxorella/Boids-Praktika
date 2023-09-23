@@ -1,6 +1,9 @@
-class Data;
+#ifndef Modelh
+    #define Modelh
 
-#include <fieldb.h>
+#include "ALL.h"
+#include "BASIC.h"
+
 class Model{
 private:
     float timer=0;
@@ -30,3 +33,5 @@ void Model::simulate(){
 Model::~Model()
 {
 }
+
+#endif

@@ -1,5 +1,7 @@
-using namespace std;
-#include <vector>
+#ifndef Creatureh
+    #define Creatureh
+#include "ALL.h"
+#include "BASIC.h"
 class Creature
 {
 public:
@@ -13,3 +15,5 @@ public:
     
 };
 
+
+#endif

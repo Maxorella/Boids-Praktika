@@ -1,7 +1,9 @@
-#include <data.h>
-#include <creature.h>
-#include <cmath>
-#include <vector>
+#ifndef Fieldbh
+    #define Fieldbh
+
+#include "ALL.h"
+#include "BASIC.h"
+
 class FieldBehaviour
 {
 public:
@@ -53,3 +55,5 @@ FieldBehaviour::FieldBehaviour(/* args */)
 FieldBehaviour::~FieldBehaviour()
 {
 }
+
+#endif

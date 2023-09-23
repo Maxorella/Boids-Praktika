@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <data.h>
+
+#include "ALL.h"
+#include "BASIC.h"
+
 int main(){
     Data();
     return 0;

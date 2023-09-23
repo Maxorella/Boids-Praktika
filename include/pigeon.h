@@ -1,15 +1,16 @@
-#include <creature.h>
-#include <vector>
-#include <fieldb.h>
-#include <data.h>
-#include <car.h>
-using namespace std;
+#ifndef Pigeonh
+    #define Pigeonh
+
+
+#include "ALL.h"
+#include "BASIC.h"
+
 class Pigeon: public Creature
 {
 private:
-    vector<float> pos{0,0};
-    vector<float> speed{0,0};
-    vector<float> speedVector{0,0};
+    vector<float> pos;
+    vector<float> speed;
+    vector<float> speedVector;
     FieldBehaviour* fieldBeh;
     Data dat;
   //  Data* dat;
@@ -17,9 +18,9 @@ private:
     //Each boid attempts to match the velocity of other boids inside its visible range.
     // Each boid steers gently toward the center of mass of other boids within its visible range.
 
-    static inline vector<float> coef{0.1, 0.05, 0.02, 0.2, 1, 0.3}; // sep align cohes turnfactor carDist carDodge
-    static inline vector<float> searchRad{3, 5, 10, 20};    // sep align cohes edges
-    static inline vector<float> Margin{-30, 30, -30, 30};//left right bottom top
+    static  vector<float> coef; // sep align cohes turnfactor carDist carDodge
+    static  vector<float> searchRad;    // sep align cohes edges
+    static  vector<float> Margin;//left right bottom top
 public:
     Pigeon(vector<float>, FieldBehaviour*);
     ~Pigeon();
@@ -35,7 +36,28 @@ public:
 };
 
 Pigeon::Pigeon(vector<float> p, FieldBehaviour* f): pos(p), fieldBeh(f){
+    pos.push_back(0); pos.push_back(0);
+    speed.push_back(0); speed.push_back(0);
+    speedVector.push_back(0); speedVector.push_back(0);
+    searchRad.push_back(3); searchRad.push_back(5);
+    searchRad.push_back(10);
+    searchRad.push_back(20);
+  //  Pigeon::searchRad={3, 5, 10, 20};
+  //  Pigeon::Margin={-30, 30, -30, 30};
 
+    Margin.push_back(-30);
+    Margin.push_back(30);
+    Margin.push_back(-30);
+    Margin.push_back(30);
+
+
+ //   Pigeon::coef={0.1, 0.05, 0.02, 0.2, 1, 0.3};
+    coef.push_back(0.1);
+    coef.push_back(0.05);
+    coef.push_back(0.02);
+    coef.push_back(0.2);
+    coef.push_back(1);
+    coef.push_back(0.3);
 }
 
 vector<float> Pigeon::getpos(){ return pos;}
@@ -132,3 +154,6 @@ void Pigeon::AvoidEdges()
 Pigeon::~Pigeon()
 {
 }
+
+
+#endif

@@ -1,43 +1,56 @@
-#include <iostream>
-#include <istream>
-#include <fstream>
-#include <input.h>
-#include <data.h>
-using namespace std;
+#include "ALL.h"
+#include "BASIC.h"
 
-class Input: public Model
-{
-public:
-    void getBirdFile(vector<int> inpfiledata);
-    void getCarFile(vector<int> inpcarfiledata);
-};
 
-void Input::getBirdFile(vector<int> inpfiledata)
+
+int Input::getBirdFile(string filename)
 {
-    ifstream inpf("input_birds.txt");
-    if(!inpf)
+    ifstream inpf;
+    inpf.open(filename, std::ifstream::in);
+    if(!inpf.is_open())
     {
-        cout << "Error: file wasn't opened." << endl;
-        return;
+        cout << "Error: Bird file wasn't opened." << endl;
+        return -1;
     }
-    char *point[];
-    while (inpf >> &point)
-        inpfiledata.push_back(point);
+    string line, subst;
+    vector <float> v{};
+    while (getline(inpf, line))
+    {
+        stringstream ss(line);
+        v={};
+        while (getline(ss, subst, ' '))  //ss >> name >> course >> grade;?????
+
+        {
+            v.push_back((float)subst);
+        }
+        dat.setinpfile(v);
+    }
     inpf.close();
-    return;
+    return 1;
 }
 
-void Input::getCarFile(vector<int> inpcarfiledata)
+int Input::getCarFile(string filename)
 {
-    ifstream inpcar("input_car.txt");
-    if(!inpcar)
+    ifstream inpf(filename);
+    inpf.open("test.txt", std::ifstream::in);
+
+    if(!inpf.is_open())
     {
-        cout << "Error: file wasn't opened." << endl;
-        return;
+        cout << "Error: Car file wasn't opened." << endl;
+        return -1;
     }
-    char *point[];
-    while (inpcar >> &point)
-        inpcarfiledata.push_back(point);
-    inpcar.close();
-    return;
+    string line, subst;
+    vector <float> v{};
+    while (getline(inpf, line))
+    {
+        stringstream ss(line);
+        v={};
+        while (getline(ss, subst, ' '))
+        {
+            v.push_back((float)subst);
+        }
+        dat.setinpfile(v);
+    }
+    inpf.close();
+    return 1;
 }
