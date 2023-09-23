@@ -6,7 +6,7 @@
 int Input::getBirdFile(string filename)
 {
     ifstream inpf;
-    inpf.open(filename, ifstream::in);
+    inpf.open(filename);
     if(!inpf.is_open())
     {
         cout << "Error: Bird file wasn't opened." << endl;
@@ -19,11 +19,11 @@ int Input::getBirdFile(string filename)
         stringstream ss(line);
         vector <float> v;
         v.clear();
-        while (getline(ss, subst, ' '))  //ss >> name >> course >> grade;?????
-
-        {
-            v.push_back(atof(subst));
+       
+        while (ss >> subst) { // Extract word from the stream.
+            v.push_back(stof(subst));
         }
+        
         dat.setinpfile(v);
     }
     inpf.close();
@@ -32,8 +32,8 @@ int Input::getBirdFile(string filename)
 
 int Input::getCarFile(string filename)
 {
-    ifstream inpf(filename);
-    inpf.open("test.txt", std::ifstream::in);
+    ifstream inpf;
+    inpf.open(filename);
 
     if(!inpf.is_open())
     {
@@ -49,9 +49,9 @@ int Input::getCarFile(string filename)
 
         while (getline(ss, subst, ' '))
         {
-            v.push_back(atof(subst));
+            v.push_back(stof(subst));
         }
-        dat.setinpfile(v);
+        dat.setcarfile(v);
     }
     inpf.close();
     return 1;

@@ -6,6 +6,7 @@
 
 class Model{
 private:
+    Output outobj;
     float timer=0;
     float sliceTime=40;
     Data dat;
@@ -18,17 +19,23 @@ public:
 
 
 
-Model::Model(FieldBehaviour* b): beh(b){}
+Model::Model(FieldBehaviour* b): beh(b){
+
+    // 
+}
 
 
 void Model::simulate(){
-    beh->allBehave();
-    beh->allMove();
-    timer+=1;
-    if (timer>=sliceTime){
-        timer-=sliceTime;
-        // call slice
+    for(int j=0; j<1000; j++){
+        beh->allBehave();
+        beh->allMove();
+        timer+=1;
+        if (timer>=sliceTime){
+            timer-=sliceTime;
+            outobj.createSlice();
+        }
     }
+    
 }
 Model::~Model()
 {

@@ -8,8 +8,6 @@ using namespace std;
 
 class Output
 {
-private:
-
 public:
     void createSlice();
 };

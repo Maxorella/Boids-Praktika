@@ -20,8 +20,13 @@ public:
      vector<float> getspeed(){return speed;}
     Car(){
         pos.push_back(0); pos.push_back(0); 
-        speedVector.push_back(0); speedVector.push_back(0);
-        speed.push_back(0); speed.push_back(0);
+        speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
+        speed.push_back(0); speed.push_back(0); speed.push_back(0);
+    }
+    Car(vector <float> p){
+        pos = p;
+        speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
+        speed.push_back(0); speed.push_back(0); speed.push_back(0);
     }
     virtual ~Car();
     void behave();

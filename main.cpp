@@ -3,6 +3,8 @@
 #include "BASIC.h"
 
 int main(){
-    Data();
+    FieldBehaviour fb;
+    Model mod(&fb);
+  //  mod.simulate();
     return 0;
 }

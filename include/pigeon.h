@@ -36,10 +36,19 @@ public:
 };
 
 Pigeon::Pigeon(vector<float> p, FieldBehaviour* f): pos(p), fieldBeh(f){
-    pos.push_back(0); pos.push_back(0);
-    speed.push_back(0); speed.push_back(0);
-    speedVector.push_back(0); speedVector.push_back(0);
-    searchRad.push_back(3); searchRad.push_back(5);
+    
+   // pos.push_back(0);
+   // pos.push_back(0);
+    
+    speed.push_back(0); 
+    speed.push_back(0);
+   
+    speedVector.push_back(0); 
+    speedVector.push_back(0);
+    
+    
+    searchRad.push_back(3); 
+    searchRad.push_back(5);
     searchRad.push_back(10);
     searchRad.push_back(20);
   //  Pigeon::searchRad={3, 5, 10, 20};
