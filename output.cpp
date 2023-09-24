@@ -1,8 +1,7 @@
-
-#include "ALL.h"
 #include "BASIC.h"
+#include "ALL.h"
 
-void Output::createSlice()
+void Output_F::createSlice()
 {
     Data dat;
     static int i = 1;

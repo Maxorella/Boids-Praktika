@@ -1,9 +1,9 @@
-#include "ALL.h"
+
 #include "BASIC.h"
+#include "ALL.h"
 
 
-
-int Input::getBirdFile(string filename)
+int Input_F::getBirdFile(string filename)
 {
     ifstream inpf;
     inpf.open(filename);
@@ -30,7 +30,7 @@ int Input::getBirdFile(string filename)
     return 1;
 }
 
-int Input::getCarFile(string filename)
+int Input_F::getCarFile(string filename)
 {
     ifstream inpf;
     inpf.open(filename);
@@ -41,6 +41,7 @@ int Input::getCarFile(string filename)
         return -1;
     }
     string line, subst;
+    
     while (getline(inpf, line))
     {
         stringstream ss(line);

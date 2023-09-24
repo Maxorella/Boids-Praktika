@@ -1,5 +1,5 @@
 #ifndef BASIC
-    #define BASIC
+#define BASIC
 #include <iostream>
 #include <istream>
 #include <fstream>

@@ -1,9 +1,8 @@
 #ifndef Datah
 #define Datah
 
-#include "ALL.h"
 #include "BASIC.h"
-
+class Creature;
 
 class Data
 {
@@ -21,33 +20,33 @@ private:
     
    // static vector<float>
 public:
-    Data(){weighs.push_back(1.0); weighs.push_back(2.0); weighs.push_back(1.0);}
+    Data();
 
-    int getPDataSize(){return pigeondata.size();}
+    int getPDataSize();
 
-    Creature* getPigeon(int pos) {return pigeondata[pos];}
+    Creature* getPigeon(int);
 
-    void setinpvec(Creature* v) { pigeondata.push_back(v);}
+    void setinpvec(Creature*);
 
-    Creature* getCar(){return car;}
+    Creature* getCar();
 
-    void setCar(Creature* c){car = c;}
+    void setCar(Creature*);
 
-    vector<float> getweights(){ return weighs; }
+    vector<float> getweights();
 
-    void setinpfile(vector<float> v){inpfile.push_back(v);}
+    void setinpfile(vector<float> v);
 
-    vector<float> getinpfile(int pos){return inpfile[pos];}
+    vector<float> getinpfile(int pos);
 
-    float distance(vector<float> a, vector<float> b ){ return sqrt(pow(a[0]-b[0],2)+pow(a[1]-b[1],2)); }
+    float distance(vector<float> a, vector<float> b );
 
-    vector<float> getCarPoint(int pos){ return carfile[pos];}
+    vector<float> getCarPoint(int pos);
 
-    vector<float> setcarfile(vector<float> v){ carfile.push_back(v);}
+    vector<float> setcarfile(vector<float> v);
 
-    int getpointCount(){return pointCount;}
+    int getpointCount();
 
-    float getdeltaTime(){return deltaTime;}
+    float getdeltaTime();
     
   
     ~Data();

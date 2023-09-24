@@ -1,7 +1,7 @@
 #ifndef Carh
     #define Carh
-#include "ALL.h"
 #include "BASIC.h"
+class Data;
 
 
 class Car:public Creature
@@ -16,19 +16,11 @@ private:
     float speedCoef=0.1f;
     //float distance(vector<float>, vector<float>);
 public:
-     vector<float> getpos(){return pos;}
-     vector<float> getspeed(){return speed;}
-    Car(){
-        pos.push_back(0); pos.push_back(0); 
-        speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
-        speed.push_back(0); speed.push_back(0); speed.push_back(0);
-    }
-    Car(vector <float> p){
-        pos = p;
-        speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
-        speed.push_back(0); speed.push_back(0); speed.push_back(0);
-    }
-    virtual ~Car();
+     vector<float> getpos();
+     vector<float> getspeed();
+    Car();
+    Car(vector <float>);
+   // virtual ~Car();
     void behave();
     void move();
 };

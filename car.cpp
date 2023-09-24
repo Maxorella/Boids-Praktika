@@ -2,6 +2,28 @@
 #include "ALL.h"
 #include "BASIC.h"
 
+
+
+
+Car::Car()
+{
+    pos.push_back(0); pos.push_back(0); 
+    speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
+    speed.push_back(0); speed.push_back(0); speed.push_back(0);
+}
+
+Car::Car(vector <float> p){
+    pos = p;
+    speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
+    speed.push_back(0); speed.push_back(0); speed.push_back(0);
+}
+
+//Car::~Car(){};
+
+
+vector<float> Car::getpos(){return pos;}
+
+vector<float> Car::getspeed(){return speed;}
 void Car::behave(){
     if(dat.distance(pos,targetPos)<0.2){
         if (pointN<dat.getpointCount()){

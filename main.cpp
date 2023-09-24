@@ -1,6 +1,5 @@
-
-#include "ALL.h"
 #include "BASIC.h"
+#include "ALL.h"
 
 int main(){
     FieldBehaviour fb;

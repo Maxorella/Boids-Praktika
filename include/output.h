@@ -1,12 +1,12 @@
 #ifndef OUTClass
     #define OUTClass
 
-#include "ALL.h"
+
 #include "BASIC.h"
 
 using namespace std;
 
-class Output
+class Output_F
 {
 public:
     void createSlice();

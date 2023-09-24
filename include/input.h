@@ -1,12 +1,11 @@
 #ifndef INPClass
     #define INPClass
 
-#include "ALL.h"
 #include "BASIC.h"
-
+class Data;
 using namespace std;
 
-class Input
+class Input_F
 {
 private:
     Data dat;
