@@ -1,5 +1,17 @@
 #include "BASIC.h"
-#include "ALL.h"
+#include "data.h"
+
+
+ vector<float> Data::weighs; // INIT??
+ float Data::deltaTime=0.05f;
+ vector<Creature*> Data::meadow;
+ vector<Creature*> Data::pigeondata;
+ Creature* Data::car;
+ vector<vector<float> > Data::inpfile; // - координаты птиц
+vector<vector<float> > Data::carfile; // - координаты машин
+ int Data::pointCount; 
+
+
 
 Data::Data(){weighs.push_back(1.0); weighs.push_back(2.0); weighs.push_back(1.0);}
 
@@ -23,8 +35,9 @@ float Data::distance(vector<float> a, vector<float> b ){ return sqrt(pow(a[0]-b[
 
 vector<float> Data::getCarPoint(int pos){ return carfile[pos];}
 
-vector<float> Data::setcarfile(vector<float> v){ carfile.push_back(v);}
+void Data::setcarfile(vector<float> v){ carfile.push_back(v); return;}
 
 int Data::getpointCount(){return pointCount;}
 
 float Data::getdeltaTime(){return deltaTime;}
+

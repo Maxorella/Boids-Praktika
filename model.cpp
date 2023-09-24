@@ -2,9 +2,11 @@
 #include "ALL.h"
 
 
-Model::Model(FieldBehaviour* b): beh(b){
-
-    // 
+Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilename(bfile), carfilename(cfile){
+    Input_F inpp;
+    inpp.getBirdFile(birdfilename);
+    inpp.getCarFile(carfilename);
+    
 }
 
 

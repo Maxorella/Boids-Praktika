@@ -4,11 +4,11 @@
 
 #include "BASIC.h"
 
-using namespace std;
 
 class Output_F
 {
 public:
+    Output_F(){};
     void createSlice();
 };
 

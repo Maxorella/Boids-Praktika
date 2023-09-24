@@ -7,8 +7,8 @@
 class Creature
 {
 public:
-    Creature();
-    virtual ~Creature();
+    Creature(){};
+    virtual ~Creature(){};
     virtual void behave()=0;
     virtual void move()=0;
     virtual vector<float> getpos()=0;

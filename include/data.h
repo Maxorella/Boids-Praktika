@@ -2,14 +2,13 @@
 #define Datah
 
 #include "BASIC.h"
-class Creature;
-
+#include "creature.h"
 class Data
 {
 private:
 
     static vector<float> weighs; // INIT??
-    static inline float deltaTime=0.05f;
+    static float deltaTime;
     static vector<Creature*> meadow;
     static vector<Creature*> pigeondata;
     static Creature* car;
@@ -17,8 +16,6 @@ private:
     static vector<vector<float> > carfile; // - координаты машин
     static int pointCount; 
     //static vector<vector<float> > outfile;
-    
-   // static vector<float>
 public:
     Data();
 
@@ -42,14 +39,14 @@ public:
 
     vector<float> getCarPoint(int pos);
 
-    vector<float> setcarfile(vector<float> v);
+    void setcarfile(vector<float> v);
 
     int getpointCount();
 
     float getdeltaTime();
     
   
-    ~Data();
+    ~Data(){};
 };
 
 #endif

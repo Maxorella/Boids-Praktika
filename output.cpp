@@ -1,12 +1,12 @@
 #include "BASIC.h"
-#include "ALL.h"
-
+#include "Data.h"
+#include "output.h"
 void Output_F::createSlice()
 {
     Data dat;
     static int i = 1;
     vector <float> v;
-    ofstream outf("%d.txt", i);
+    ofstream outf(to_string(i));
     if(!outf.is_open())
     {
         cout << "Error: file wasn't created." << endl;
@@ -19,5 +19,6 @@ void Output_F::createSlice()
         outf << std::endl;
     }
     outf.close();
+    i++;
     return;
 }

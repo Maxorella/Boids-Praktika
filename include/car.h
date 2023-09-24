@@ -1,10 +1,11 @@
 #ifndef Carh
     #define Carh
 #include "BASIC.h"
-class Data;
+#include "creature.h"
+#include "data.h"
 
 
-class Car:public Creature
+class Car: public Creature
 {
 private:
     Data dat;
@@ -20,7 +21,7 @@ public:
      vector<float> getspeed();
     Car();
     Car(vector <float>);
-   // virtual ~Car();
+    virtual ~Car();
     void behave();
     void move();
 };

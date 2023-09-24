@@ -1,6 +1,8 @@
 #include "BASIC.h"
 #include "ALL.h"
-
+vector<float> Pigeon::coef; // sep align cohes turnfactor carDist carDodge
+vector<float> Pigeon::searchRad;    // sep align cohes edges
+vector<float> Pigeon::Margin;//left right bottom top
 Pigeon::Pigeon(vector<float> p, FieldBehaviour* f): pos(p), fieldBeh(f){
     
    // pos.push_back(0);

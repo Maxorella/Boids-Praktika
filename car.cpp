@@ -1,7 +1,7 @@
-
-#include "ALL.h"
 #include "BASIC.h"
-
+#include "creature.h"
+#include "data.h"
+#include "car.h"
 
 
 
@@ -18,7 +18,7 @@ Car::Car(vector <float> p){
     speed.push_back(0); speed.push_back(0); speed.push_back(0);
 }
 
-//Car::~Car(){};
+Car::~Car(){};
 
 
 vector<float> Car::getpos(){return pos;}

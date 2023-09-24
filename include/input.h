@@ -2,9 +2,7 @@
     #define INPClass
 
 #include "BASIC.h"
-class Data;
-using namespace std;
-
+#include "Data.h"
 class Input_F
 {
 private:

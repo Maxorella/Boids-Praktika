@@ -2,8 +2,8 @@
     #define Fieldbh
 
 #include "BASIC.h"
-class Creature;
-class Data;
+#include "ALL.h"
+
 
 class FieldBehaviour
 {

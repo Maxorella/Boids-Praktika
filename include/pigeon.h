@@ -3,8 +3,8 @@
 
 
 #include "BASIC.h"
-class FieldBehaviour;
-class Data;
+#include "ALL.h"
+
 class Pigeon: public Creature
 {
 private:
