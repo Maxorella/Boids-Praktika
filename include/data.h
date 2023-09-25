@@ -18,6 +18,8 @@ private:
     //static vector<vector<float> > outfile;
 public:
     Data();
+    int getinpfilesize();
+    int getcarfilesize();
 
     int getPDataSize();
 

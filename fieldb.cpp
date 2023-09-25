@@ -38,6 +38,7 @@ vector<Creature*> FieldBehaviour::getNearCreatures(vector<float> pos, float r)
 
 FieldBehaviour::FieldBehaviour(/* args */)
 {
+    
 }
 
 FieldBehaviour::~FieldBehaviour()

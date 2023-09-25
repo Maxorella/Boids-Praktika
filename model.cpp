@@ -6,7 +6,13 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilenam
     Input_F inpp;
     inpp.getBirdFile(birdfilename);
     inpp.getCarFile(carfilename);
-    
+    for (int i =0; i<dat.getinpfilesize(); i++){
+        Pigeon* pig =  new Pigeon(dat.getinpfile(i),b);
+        dat.setinpvec(pig);
+    }
+
+        Car* carr = new Car(dat.getCarPoint(0));
+        dat.setCar(carr);
 }
 
 

@@ -9,7 +9,7 @@ class Car: public Creature
 {
 private:
     Data dat;
-    int pointN=0;
+    int pointN=1;
     vector<float> pos;
     vector<float> targetPos;
     vector<float> speedVector;

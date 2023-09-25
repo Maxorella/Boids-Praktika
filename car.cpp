@@ -16,6 +16,7 @@ Car::Car(vector <float> p){
     pos = p;
     speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
     speed.push_back(0); speed.push_back(0); speed.push_back(0);
+    targetPos = pos;
 }
 
 Car::~Car(){};
@@ -31,6 +32,7 @@ void Car::behave(){
             pointN++;
         }
     }
+    //TODO: nan distance
     speedVector[0]=(targetPos[0]-pos[0])/dat.distance(targetPos,pos);
     speedVector[1]=(targetPos[1]-pos[1])/dat.distance(targetPos,pos);
     speed=speedVector;
