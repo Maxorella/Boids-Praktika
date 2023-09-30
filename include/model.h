@@ -11,7 +11,7 @@ private:
     string carfilename;
     Output_F outobj;
     float timer=0;
-    float sliceTime=40;
+    float sliceTime=60;
     Data dat;
     FieldBehaviour* beh;
 public:

@@ -1,4 +1,5 @@
 #include "BASIC.h"
+#include "ALL.h"
 #include "Data.h"
 #include "output.h"
 void Output_F::createSlice()
@@ -18,6 +19,8 @@ void Output_F::createSlice()
             outf << g << " ";
         outf << std::endl;
     }
+    for (float g: dat.getCar()->getpos())
+        outf << g << " ";
     outf.close();
     i++;
     return;

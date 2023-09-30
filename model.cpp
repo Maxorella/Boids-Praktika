@@ -17,7 +17,7 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilenam
 
 
 void Model::simulate(){
-    for(int j=0; j<1000; j++){
+    for(int j=0; j<2000; j++){
         beh->allBehave();
         beh->allMove();
         timer+=1;
