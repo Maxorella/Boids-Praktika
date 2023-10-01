@@ -21,4 +21,4 @@ for i in range(1,34):
     plt.savefig(name)
     plt.cla()
 
-#   plt.savefig('foo.pdf',bbox_inches='tight')
+#   plt.savefig('foo.pdaf',bbox_inches='tight')
