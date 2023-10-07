@@ -1,9 +1,10 @@
 #ifndef Modelh
     #define Modelh
 
-#include "BASIC.h"
-#include "ALL.h"
-
+#include <string>
+#include <iostream>
+#include "output.h"
+#include "fieldb.h"
 
 class Model{
 private:

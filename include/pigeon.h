@@ -2,9 +2,11 @@
     #define Pigeonh
 
 
-#include "BASIC.h"
-#include "ALL.h"
-
+#include <vector>
+#include <iostream>
+#include "creature.h"
+#include "fieldb.h"
+using namespace std;
 class Pigeon: public Creature
 {
 private:
@@ -13,7 +15,6 @@ private:
     vector<float> speedVector;
     FieldBehaviour* fieldBeh;
     Data dat;
-  //  Data* dat;
     // Each boid attempts to avoid running into other boids. If two or more boids get too close to one another
     //Each boid attempts to match the velocity of other boids inside its visible range.
     // Each boid steers gently toward the center of mass of other boids within its visible range.

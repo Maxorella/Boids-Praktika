@@ -1,9 +1,8 @@
 #ifndef Creatureh
     #define Creatureh
-
-#include "BASIC.h"
-
-
+#include <vector>
+#include <iostream>
+using namespace std;
 class Creature
 {
 public:

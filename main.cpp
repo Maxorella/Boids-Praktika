@@ -1,6 +1,5 @@
-#include "BASIC.h"
-#include "ALL.h"
-
+#include "fieldb.h"
+#include "model.h"
 int main(int argc, char* argv[]){
   string fbirdname = argv[1];
   string fcarname = argv[2];

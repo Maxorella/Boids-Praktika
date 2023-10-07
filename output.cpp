@@ -1,7 +1,10 @@
-#include "BASIC.h"
-#include "ALL.h"
+
 #include "Data.h"
 #include "output.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+using namespace std;
 void Output_F::createSlice()
 {
     Data dat;

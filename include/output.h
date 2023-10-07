@@ -1,10 +1,5 @@
 #ifndef OUTClass
     #define OUTClass
-
-
-#include "BASIC.h"
-
-
 class Output_F
 {
 public:

@@ -1,7 +1,9 @@
-
-#include "BASIC.h"
-#include "ALL.h"
-
+#include "fieldb.h"
+#include "data.h"
+#include <cmath>
+#include <vector>
+#include <iostream>
+using namespace std;
 
 void FieldBehaviour::allBehave(){
     for(int i=0; i<dat.getPDataSize(); i++)

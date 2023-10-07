@@ -1,7 +1,7 @@
 #ifndef INPClass
     #define INPClass
-
-#include "BASIC.h"
+#include <string>
+#include <iostream>
 #include "Data.h"
 class Input_F
 {

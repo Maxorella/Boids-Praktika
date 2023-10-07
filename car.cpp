@@ -1,8 +1,7 @@
-#include "BASIC.h"
-#include "creature.h"
-#include "data.h"
 #include "car.h"
-
+#include <iostream>
+#include <vector>
+using namespace std;
 
 
 Car::Car()
@@ -32,7 +31,6 @@ void Car::behave(){
             pointN++;
         }
     }
-    //TODO: nan distance
     speedVector[0]=(targetPos[0]-pos[0])/dat.distance(targetPos,pos);
     speedVector[1]=(targetPos[1]-pos[1])/dat.distance(targetPos,pos);
     speed=speedVector;

@@ -1,8 +1,10 @@
 #ifndef Datah
 #define Datah
 
-#include "BASIC.h"
+#include <vector>
+#include <iostream>
 #include "creature.h"
+using namespace std;
 class Data
 {
 private:

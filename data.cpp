@@ -1,6 +1,8 @@
-#include "BASIC.h"
 #include "data.h"
-
+#include <cmath>
+#include <vector>
+#include <iostream>
+using namespace std;
 
  vector<float> Data::weighs; // INIT??
  float Data::deltaTime=0.05f;

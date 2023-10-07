@@ -1,5 +1,8 @@
-#include "BASIC.h"
-#include "ALL.h"
+#include <vector>
+#include <iostream>
+#include "pigeon.h"
+using namespace std;
+
 vector<float> Pigeon::coef; // sep align cohes turnfactor carDist carDodge
 vector<float> Pigeon::searchRad;    // sep align cohes edges
 vector<float> Pigeon::Margin;//left right bottom top

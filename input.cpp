@@ -1,8 +1,10 @@
-
-#include "BASIC.h"
-#include "ALL.h"
-
-
+#include "input.h"
+#include <string>
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
 int Input_F::getBirdFile(string filename)
 {
     ifstream inpf;

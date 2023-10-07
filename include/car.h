@@ -1,6 +1,9 @@
 #ifndef Carh
     #define Carh
-#include "BASIC.h"
+
+#include <vector>
+#include <iostream>
+using namespace std;
 #include "creature.h"
 #include "data.h"
 
@@ -15,7 +18,6 @@ private:
     vector<float> speedVector;
     vector<float> speed;
     float speedCoef=0.1f;
-    //float distance(vector<float>, vector<float>);
 public:
      vector<float> getpos();
      vector<float> getspeed();

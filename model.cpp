@@ -1,7 +1,11 @@
-#include "BASIC.h"
-#include "ALL.h"
-
-
+#include <iostream>
+#include <vector>
+#include "pigeon.h"
+#include "fieldb.h"
+#include "car.h"
+#include "model.h"
+#include "input.h"
+using namespace std;
 Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilename(bfile), carfilename(cfile){
     Input_F inpp;
     inpp.getBirdFile(birdfilename);

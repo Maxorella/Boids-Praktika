@@ -1,19 +1,17 @@
 #ifndef Fieldbh
     #define Fieldbh
-
-#include "BASIC.h"
-#include "ALL.h"
-
+#include <vector>
+#include "creature.h"
+#include "data.h"
 
 class FieldBehaviour
 {
 public:
     Data dat;
-    FieldBehaviour(/* args */);
+    FieldBehaviour();
     ~FieldBehaviour();
     void allBehave();
     void allMove();
-   // Data* getData(){return &dat;}
     vector<Creature*> getNearCreatures(vector<float> pos, float r);
 };
 
