@@ -1,49 +1,50 @@
 #include "data.h"
+#include "coord.h"
 #include <cmath>
 #include <vector>
 #include <iostream>
 using namespace std;
 
  vector<float> Data::weighs; // INIT??
- float Data::deltaTime=0.05f;
- vector<Creature*> Data::meadow;
- vector<Creature*> Data::pigeondata;
-vector<vector<float> > Data::inpfile; // - координаты птиц
+ float Data::timeMultiplier=0.05f;
+ //vector<Creature*> Data::meadow;
+ vector<Creature*> Data::pigeonsInMeadow;
+vector<Vec3Cord > Data::startPigeonsPoses; // - координаты птиц
  Creature* Data::car;
-vector<vector<float> > Data::carfile; // - координаты машин
- int Data::pointCount; 
+vector<Vec3Cord > Data::carPosesInstruction; // - координаты машин
+//int Data::pointCount;
 
 
 
 Data::Data(){weighs.push_back(1.0); weighs.push_back(2.0); weighs.push_back(1.0);} //TODO: multipe init!
 
-int Data::getPDataSize(){return pigeondata.size();}
+int Data::getPigInMeadowSize(){return pigeonsInMeadow.size();}
 
-Creature* Data::getPigeon(int pos) {return pigeondata[pos];}
+Creature* Data::getPigeon(int pos) {return pigeonsInMeadow[pos];}
 
-void Data::setinpvec(Creature* v) { pigeondata.push_back(v);}
+void Data::setPigToMeadow(Creature* v) { pigeonsInMeadow.push_back(v);}
 
 Creature* Data::getCar(){return car;}
 
 void Data::setCar(Creature* c){car = c;}
 
-vector<float> Data::getweights(){ return weighs; }
+//vector<float> Data::getweights(){ return weighs; }
 
-void Data::setinpfile(vector<float> v){inpfile.push_back(v);}
+void Data::setPigStartPos(Vec3Cord v){startPigeonsPoses.push_back(v);}
 
-vector<float> Data::getinpfile(int pos){return inpfile[pos];}
+Vec3Cord Data::getPigStartPos(int pos){return startPigeonsPoses[pos];}
 
-int Data::getinpfilesize(){return inpfile.size();}
+int Data::getPigeonsCount(){return startPigeonsPoses.size();}
 
-int Data::getcarfilesize(){return carfile.size();};
+//int Data::getcarfilesize(){return carPosesInstruction.size();};
 
-float Data::distance(vector<float> a, vector<float> b ){ return sqrt(pow(a[0]-b[0],2)+pow(a[1]-b[1],2)); }
+float Data::distance(Vec3Cord vec3a, Vec3Cord vec3b ){ return sqrt(pow(vec3a.x-vec3b.x,2)+pow(vec3a.y-vec3b.y,2)); } //TODO: на три координаты
 
-vector<float> Data::getCarPoint(int pos){ return carfile[pos];}
+Vec3Cord Data::getCarPoint(int pos){ return carPosesInstruction[pos];}
 
-void Data::setcarfile(vector<float> v){ carfile.push_back(v); return;}
+void Data::setCarPoint(Vec3Cord v){ carPosesInstruction.push_back(v); return;}
 
-int Data::getpointCount(){return carfile.size();}
+int Data::getCarPointCount(){return carPosesInstruction.size();}
 
-float Data::getdeltaTime(){return deltaTime;}
+float Data::getTimeMultpl(){return timeMultiplier;}
 

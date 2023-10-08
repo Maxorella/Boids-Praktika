@@ -1,42 +1,45 @@
 #include "car.h"
+#include "data.h"
+#include "coord.h"
 #include <iostream>
 #include <vector>
+#include <cstring>
 using namespace std;
 
 
-Car::Car()
-{
-    pos.push_back(0); pos.push_back(0); 
-    speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
-    speed.push_back(0); speed.push_back(0); speed.push_back(0);
-}
+Car::Car(){}
 
-Car::Car(vector <float> p){
+Car::Car(Vec3Cord p){
     pos = p;
-    speedVector.push_back(0); speedVector.push_back(0); speedVector.push_back(0);
-    speed.push_back(0); speed.push_back(0); speed.push_back(0);
-    targetPos = pos;
+    targetPos = p;
 }
 
 Car::~Car(){};
 
 
-vector<float> Car::getpos(){return pos;}
+Vec3Cord Car::getpos(){
+    return pos;
+}
 
-vector<float> Car::getspeed(){return speed;}
+Vec3Cord Car::getspeed()
+{
+    return speed;
+}
 void Car::behave(){
+    speedVector.x=0;
+    speedVector.y=0;
     if(dat.distance(pos,targetPos)<0.2){
-        if (pointN<dat.getpointCount()){
-            targetPos=dat.getCarPoint(pointN);
-            pointN++;
+        if (pointNumToReach<dat.getCarPointCount()){
+            targetPos=dat.getCarPoint(pointNumToReach);
+            pointNumToReach++;
         }
     }
-    speedVector[0]=(targetPos[0]-pos[0])/dat.distance(targetPos,pos);
-    speedVector[1]=(targetPos[1]-pos[1])/dat.distance(targetPos,pos);
-    speed=speedVector;
+    speedVector.x=(targetPos.x-pos.x)/dat.distance(targetPos,pos);
+    speedVector.y=(targetPos.x-pos.x)/dat.distance(targetPos,pos);
+    speed= speedVector;
 }
 
 void Car::move(){
-    pos[0]+=speed[0]*dat.getdeltaTime()*speedCoef;
-    pos[1]+=speed[1]*dat.getdeltaTime()*speedCoef;
+    pos.x+=speed.x*dat.getTimeMultpl()*speedCoef*dat.getTimeMultpl();
+    pos.y+=speed.y*dat.getTimeMultpl()*speedCoef*dat.getTimeMultpl();
 }

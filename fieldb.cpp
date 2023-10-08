@@ -1,12 +1,13 @@
 #include "fieldb.h"
 #include "data.h"
+#include "coord.h"
 #include <cmath>
 #include <vector>
 #include <iostream>
 using namespace std;
 
 void FieldBehaviour::allBehave(){
-    for(int i=0; i<dat.getPDataSize(); i++)
+    for(int i=0; i<dat.getPigInMeadowSize(); i++)
     {
         dat.getPigeon(i)->behave();
     }
@@ -14,7 +15,7 @@ void FieldBehaviour::allBehave(){
 }
 
 void FieldBehaviour::allMove(){
-    for(int i=0; i<dat.getPDataSize(); i++)
+    for(int i=0; i<dat.getPigInMeadowSize(); i++)
     {
         dat.getPigeon(i)->move();
     }
@@ -22,19 +23,19 @@ void FieldBehaviour::allMove(){
 }
 
 
-vector<Creature*> FieldBehaviour::getNearCreatures(vector<float> pos, float r)
+vector<Creature*> FieldBehaviour::getNearCreatures(Vec3Cord nearPos, float inRadius)
 {
-    vector<Creature*> out;
-     for(int i=0; i<dat.getPDataSize(); i++)
+    vector<Creature*> foundCreatures;
+     for(int i=0; i<dat.getPigInMeadowSize(); i++)
     {
-        vector<float> pPos = dat.getPigeon(i)->getpos();
-        float dist = sqrt(pow(pPos[0]-pos[0],2)+ pow( pPos[1]-pos[1],2)); 
-        if (dist <= r && dist!=0)
+        Vec3Cord pigPos = dat.getPigeon(i)->getpos();
+        float dist = sqrt(pow(pigPos.x-nearPos.x,2)+ pow( pigPos.y-nearPos.y,2));
+        if (dist <= inRadius && dist!=0)
         {
-            out.push_back(dat.getPigeon(i));
+            foundCreatures.push_back(dat.getPigeon(i));
         }
     }
-    return out;
+    return foundCreatures;
 }
 
 

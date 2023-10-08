@@ -8,13 +8,13 @@
 
 class Model{
 private:
-    string birdfilename;
-    string carfilename;
-    Output_F outobj;
+    string birdFileName;
+    string carFileName;
+    OutputController outController;
     float timer=0;
     float sliceTime=60;
     Data dat;
-    FieldBehaviour* beh;
+    FieldBehaviour* behavController;
 public:
     Model(FieldBehaviour*, string, string);
     void simulate();

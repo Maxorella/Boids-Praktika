@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include "Data.h"
-class Input_F
+class InputController
 {
 private:
     Data dat;

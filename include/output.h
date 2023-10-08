@@ -1,9 +1,9 @@
 #ifndef OUTClass
     #define OUTClass
-class Output_F
+class OutputController
 {
 public:
-    Output_F(){};
+    OutputController(){};
     void createSlice();
 };
 

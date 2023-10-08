@@ -3,7 +3,7 @@
 #include <vector>
 #include "creature.h"
 #include "data.h"
-
+#include "coord.h"
 class FieldBehaviour
 {
 public:
@@ -12,7 +12,7 @@ public:
     ~FieldBehaviour();
     void allBehave();
     void allMove();
-    vector<Creature*> getNearCreatures(vector<float> pos, float r);
+    vector<Creature*> getNearCreatures(Vec3Cord nearPos, float inRadius);
 };
 
 #endif

@@ -6,23 +6,24 @@
 using namespace std;
 #include "creature.h"
 #include "data.h"
+#include "coord.h"
 
 
 class Car: public Creature
 {
 private:
     Data dat;
-    int pointN=1;
-    vector<float> pos;
-    vector<float> targetPos;
-    vector<float> speedVector;
-    vector<float> speed;
+    int pointNumToReach=1;
+    Vec3Cord pos;
+    Vec3Cord targetPos;
+    Vec3Cord speedVector;
+    Vec3Cord speed;
     float speedCoef=0.1f;
 public:
-     vector<float> getpos();
-     vector<float> getspeed();
+    Vec3Cord getpos();
+    Vec3Cord getspeed();
     Car();
-    Car(vector <float>);
+    Car(Vec3Cord);
     virtual ~Car();
     void behave();
     void move();

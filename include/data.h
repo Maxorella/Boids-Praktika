@@ -4,50 +4,52 @@
 #include <vector>
 #include <iostream>
 #include "creature.h"
+#include "coord.h"
 using namespace std;
+
 class Data
 {
 private:
 
     static vector<float> weighs; // INIT??
-    static float deltaTime;
-    static vector<Creature*> meadow;
-    static vector<Creature*> pigeondata;
+    static float timeMultiplier;
+   // static vector<Creature*> meadow;
+    static vector<Creature*> pigeonsInMeadow;
     static Creature* car;
-    static vector<vector<float> > inpfile; // - координаты птиц
-    static vector<vector<float> > carfile; // - координаты машин
-    static int pointCount; 
+    static vector<Vec3Cord> startPigeonsPoses; // - координаты птиц
+    static vector<Vec3Cord> carPosesInstruction; // - координаты машин
+   // static int pointCount;
     //static vector<vector<float> > outfile;
 public:
     Data();
-    int getinpfilesize();
-    int getcarfilesize();
+    int getPigeonsCount();
+   // int getcarfilesize();
 
-    int getPDataSize();
+    int getPigInMeadowSize();
 
     Creature* getPigeon(int);
 
-    void setinpvec(Creature*);
+    void setPigToMeadow(Creature*);
 
     Creature* getCar();
 
     void setCar(Creature*);
 
-    vector<float> getweights();
+   // vector<float> getweights();
 
-    void setinpfile(vector<float> v);
+    void setPigStartPos(Vec3Cord v);
 
-    vector<float> getinpfile(int pos);
+    Vec3Cord getPigStartPos(int pos);
 
-    float distance(vector<float> a, vector<float> b );
+    float distance(Vec3Cord vec3a, Vec3Cord vec3b);
 
-    vector<float> getCarPoint(int pos);
+    Vec3Cord getCarPoint(int pos);
 
-    void setcarfile(vector<float> v);
+    void setCarPoint(Vec3Cord v);
 
-    int getpointCount();
+    int getCarPointCount();
 
-    float getdeltaTime();
+    float getTimeMultpl();
     
   
     ~Data(){};

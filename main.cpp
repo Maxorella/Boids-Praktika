@@ -1,11 +1,11 @@
 #include "fieldb.h"
 #include "model.h"
 int main(int argc, char* argv[]){
-  string fbirdname = argv[1];
-  string fcarname = argv[2];
+  string birdfilename = argv[1];
+  string carfilename = argv[2];
   FieldBehaviour fb;
 
-  Model mod(&fb, fbirdname, fcarname);
+  Model mod(&fb, birdfilename, carfilename);
   mod.simulate();
     return 0;
 }

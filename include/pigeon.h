@@ -6,13 +6,14 @@
 #include <iostream>
 #include "creature.h"
 #include "fieldb.h"
+#include "coord.h"
 using namespace std;
 class Pigeon: public Creature
 {
 private:
-    vector<float> pos;
-    vector<float> speed;
-    vector<float> speedVector;
+    Vec3Cord pos;
+    Vec3Cord speed;
+    Vec3Cord speedVector;
     FieldBehaviour* fieldBeh;
     Data dat;
     // Each boid attempts to avoid running into other boids. If two or more boids get too close to one another
@@ -23,15 +24,15 @@ private:
     static  vector<float> searchRad;    // sep align cohes edges
     static  vector<float> Margin;//left right bottom top
 public:
-    Pigeon(vector<float>, FieldBehaviour*);
+    Pigeon(Vec3Cord, FieldBehaviour*);
     ~Pigeon();
     void behave();
     void move();
-    vector<float> getpos();
+    Vec3Cord getpos();
     void Separation();
     void Alignment();
     void Cohesion();
-    vector<float> getspeed();
+    Vec3Cord getspeed();
     void AvoidEdges();
     void CarDodge();
 };

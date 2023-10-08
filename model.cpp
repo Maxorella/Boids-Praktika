@@ -6,13 +6,13 @@
 #include "model.h"
 #include "input.h"
 using namespace std;
-Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilename(bfile), carfilename(cfile){
-    Input_F inpp;
-    inpp.getBirdFile(birdfilename);
-    inpp.getCarFile(carfilename);
-    for (int i =0; i<dat.getinpfilesize(); i++){
-        Pigeon* pig =  new Pigeon(dat.getinpfile(i),b);
-        dat.setinpvec(pig);
+Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b), birdFileName(bfile), carFileName(cfile){
+    InputController inputControl;
+    inputControl.getBirdFile(birdFileName);
+    inputControl.getCarFile(carFileName);
+    for (int i =0; i<dat.getPigeonsCount(); i++){
+        Pigeon* pigeon =  new Pigeon(dat.getPigStartPos(i),b);
+        dat.setPigToMeadow(pigeon);
     }
 
         Car* carr = new Car(dat.getCarPoint(0));
@@ -22,12 +22,12 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): beh(b), birdfilenam
 
 void Model::simulate(){
     for(int j=0; j<2000; j++){
-        beh->allBehave();
-        beh->allMove();
+        behavController->allBehave();
+        behavController->allMove();
         timer+=1;
         if (timer>=sliceTime){
             timer-=sliceTime;
-            outobj.createSlice();
+            outController.createSlice();
         }
     }
     

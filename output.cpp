@@ -5,26 +5,25 @@
 #include <vector>
 #include <fstream>
 using namespace std;
-void Output_F::createSlice()
+void OutputController::createSlice()
 {
     Data dat;
     static int i = 1;
-    vector <float> v;
-    ofstream outf(to_string(i));
-    if(!outf.is_open())
+    Vec3Cord v;
+    ofstream outstrm(to_string(i));
+    if(!outstrm.is_open())
     {
         cout << "Error: file wasn't created." << endl;
         return;
     }
-    for ( int j = 0 ; j < dat.getPDataSize(); j++ ) 
+    for ( int j = 0 ; j < dat.getPigInMeadowSize(); j++ )
     {
-        for (float g: dat.getPigeon(j)->getpos())
-            outf << g << " ";
-        outf << std::endl;
+        Vec3Cord outPigPos =dat.getPigeon(j)->getpos();
+        outstrm << outPigPos.x << " " << outPigPos.y << " " << outPigPos.z << " " << std::endl;
     }
-    for (float g: dat.getCar()->getpos())
-        outf << g << " ";
-    outf.close();
+    Vec3Cord outCarPos =dat.getCar()->getpos();
+    outstrm << outCarPos.x << " " << outCarPos.y << " " << outCarPos.z << " " << std::endl;
+    outstrm.close();
     i++;
     return;
 }
