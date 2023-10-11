@@ -1,6 +1,5 @@
 #include "input.h"
 #include <string>
-#include <vector>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -20,16 +19,26 @@ int InputController::getBirdFile(string filename)
     while (getline(inpfile, line))
     {
         stringstream strStream(line);
-        vector <float> v; //TODO: в обработке сделать сразу Vec3Cord  и саму обработку сделать на правильность файлов
-        v.clear();
-       
-        while (strStream >> subst) { // Extract word from the stream.
-            v.push_back(stof(subst));
-        }
         Vec3Cord readenV;
-        readenV.x = v[0];
-        readenV.y = v[1];
-        readenV.z = v[2];
+        int i = 0;
+        while (getline(strStream, subst, ' '))
+        {
+            if (i % 3 == 0)
+                readenV.x = (stof(subst));
+            else
+            {
+                if (i % 3 == 1)
+                    readenV.y = (stof(subst));
+                else
+                    readenV.z = (stof(subst));
+            }
+            i++;
+        }
+        if (i != 3)
+        {
+            cout << "Error: uncorrect file format." << endl;
+            return -2;
+        }
         dat.setPigStartPos(readenV);
     }
     inpfile.close();
@@ -51,19 +60,29 @@ int InputController::getCarFile(string filename)
     while (getline(inpfile, line))
     {
         stringstream strStream(line);
-        vector <float> v;
-        v.clear();
-
+        Vec3Cord readenV;
+        int i = 0;
         while (getline(strStream, subst, ' '))
         {
-            v.push_back(stof(subst));
-        } //TODO: в обработке сделать сразу Vec3Cord  и саму обработку сделать на правильность файлов
-        Vec3Cord readenV;
-        readenV.x = v[0];
-        readenV.y = v[1];
-        readenV.z = v[2];
+            if (i % 3 == 0)
+                readenV.x = (stof(subst));
+            else
+            {
+                if (i % 3 == 1)
+                    readenV.y = (stof(subst));
+                else
+                    readenV.z = (stof(subst));
+            }
+            i++;
+        }
+        if (i != 3)
+        {
+            cout << "Error: uncorrect file format." << endl;
+            return -2;
+        }
         dat.setCarPoint(readenV);
     }
     inpfile.close();
     return 1;
 }
+
