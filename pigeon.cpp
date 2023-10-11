@@ -3,34 +3,36 @@
 #include "pigeon.h"
 using namespace std;
 #include "coord.h"
-vector<float> Pigeon::coef; // sep align cohes turnfactor carDist carDodge
-vector<float> Pigeon::searchRad;    // sep align cohes edges
-vector<float> Pigeon::Margin;//left right bottom top
+
+struct Pigeon::coef {
+    float sep = 0.1;
+    float align = 0.05;
+    float cohes = 0.02;
+    float turnfactor = 0.2;
+    float carDist = 1.0;
+    float carDodge = 0.3;
+};
+
+struct Pigeon::searchRad {
+    int sep = 3;
+    int align = 5;
+    int cohes = 10;
+    int edges = 20;
+};
+
+struct Pigeon::Margin {
+    int left = -30;
+    int right = 30;
+    int bottom = -30;
+    int top = 30;
+};
+
 Pigeon::Pigeon(Vec3Cord startPos, FieldBehaviour* f): pos(startPos), fieldBeh(f){
     
    // pos.push_back(0); //TODO: multipe init!!!
    // pos.push_back(0);
-
-    searchRad.push_back(3); 
-    searchRad.push_back(5);
-    searchRad.push_back(10);
-    searchRad.push_back(20);
-  //  Pigeon::searchRad={3, 5, 10, 20};
-  //  Pigeon::Margin={-30, 30, -30, 30};
-
-    Margin.push_back(-30);
-    Margin.push_back(30);
-    Margin.push_back(-30);
-    Margin.push_back(30);
-
-
- //   Pigeon::coef={0.1, 0.05, 0.02, 0.2, 1, 0.3};
-    coef.push_back(0.1);
-    coef.push_back(0.05);
-    coef.push_back(0.02);
-    coef.push_back(0.2);
-    coef.push_back(1);
-    coef.push_back(0.3);
+   pos = startPos;
+   fieldBeh = f;
 }
 
 Vec3Cord Pigeon::getpos(){ return pos;}
@@ -56,15 +58,15 @@ void Pigeon::move()
 void Pigeon::CarDodge(){
     Creature* car = dat.getCar();
     Vec3Cord carPos = car->getpos();
-    if(dat.distance(pos,carPos)<coef[4]){
-        speedVector.x+=carPos.x * (dat.distance(pos,carPos)-coef[4])*coef[5];
-        speedVector.y+=carPos.y * (dat.distance(pos,carPos)-coef[4])*coef[5];
+    if(dat.distance(pos,carPos)<coef.carDist){
+        speedVector.x+=carPos.x * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge;
+        speedVector.y+=carPos.y * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge;
     }
 
 }
 void Pigeon::Separation()
 {
-    vector<Creature*> nearCreatures = fieldBeh->getNearCreatures(pos, searchRad[0]);
+    vector<Creature*> nearCreatures = fieldBeh->getNearCreatures(pos, searchRad.sep);
     float closeDx=0;
     float closeDy=0;
     for(int i=0; i<nearCreatures.size(); i++)
@@ -72,8 +74,8 @@ void Pigeon::Separation()
         closeDx+=pos.x - nearCreatures[i]->getpos().x;
         closeDy+=pos.x - nearCreatures[i]->getpos().y;
     }
-    speedVector.x += closeDx*coef[0];
-    speedVector.y += closeDy*coef[0];
+    speedVector.x += closeDx*coef.sep;
+    speedVector.y += closeDy*coef.sep;
     
 }
 void Pigeon::Alignment()
@@ -81,7 +83,7 @@ void Pigeon::Alignment()
     float xVelocityAvg = 0;
     float yVelocityAvg = 0;
     int neighbCount = 0;
-    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad[1]);
+    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad.align);
     for(int i=0; i<nearCr.size(); i++)
     {
         xVelocityAvg+=nearCr[i]->getspeed().x;
@@ -93,8 +95,8 @@ void Pigeon::Alignment()
         xVelocityAvg = xVelocityAvg/neighbCount;
         yVelocityAvg = yVelocityAvg/neighbCount;
     }
-    speedVector.x += (xVelocityAvg - speed.x)*coef[1];
-    speedVector.y += (yVelocityAvg - speed.y)*coef[1];
+    speedVector.x += (xVelocityAvg - speed.x)*coef.align;
+    speedVector.y += (yVelocityAvg - speed.y)*coef.align;
 }
 
 void Pigeon::Cohesion()
@@ -102,7 +104,7 @@ void Pigeon::Cohesion()
     float xPosAvg = 0;
     float yPosAvg = 0;
     int neighbCount = 0;
-    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad[2]);
+    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad.cohes);
     for(int i=0; i<nearCr.size(); i++)
     {
         xPosAvg+=nearCr[i]->getpos().x;
@@ -111,20 +113,21 @@ void Pigeon::Cohesion()
     }
     xPosAvg/=neighbCount;
     yPosAvg/=neighbCount;
-    speedVector.x+=(xPosAvg-pos.x)*coef[2];
-    speedVector.x+=(yPosAvg-pos.y)*coef[2];
+    speedVector.x+=(xPosAvg-pos.x)*coef.cohes;
+    speedVector.x+=(yPosAvg-pos.y)*coef.cohes;
 }
 void Pigeon::AvoidEdges()
 {
-    if (pos.x < Margin[0])        //left
-    speedVector.x = speedVector.x + coef[3];
-    if (pos.x > Margin[1])
-        speedVector.x = speedVector.x - coef[3];
-    if (pos.y < Margin[2])
-        speedVector.y = speedVector.y - coef[3];
-    if (pos.y > Margin[3])
-        speedVector.y = speedVector.y + coef[3];
+    if (pos.x < Margin.left)        //left
+    speedVector.x = speedVector.x + coef.turnfactor;
+    if (pos.x > Margin.right)
+        speedVector.x = speedVector.x - coef.turnfactor;
+    if (pos.y < Margin.bottom)
+        speedVector.y = speedVector.y - coef.turnfactor;
+    if (pos.y > Margin.top)
+        speedVector.y = speedVector.y + coef.turnfactor;
 }
 Pigeon::~Pigeon()
 {
 }
+
