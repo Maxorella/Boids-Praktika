@@ -4,7 +4,7 @@
 using namespace std;
 #include "coord.h"
 
-struct Pigeon::coef {
+static struct Pigeon::coef {
     float sep = 0.1;
     float align = 0.05;
     float cohes = 0.02;
@@ -13,14 +13,14 @@ struct Pigeon::coef {
     float carDodge = 0.3;
 };
 
-struct Pigeon::searchRad {
+static struct Pigeon::searchRad {
     int sep = 3;
     int align = 5;
     int cohes = 10;
     int edges = 20;
 };
 
-struct Pigeon::Margin {
+static struct Pigeon::Margin {
     int left = -30;
     int right = 30;
     int bottom = -30;
