@@ -12,7 +12,7 @@ int InputController::getBirdFile(string filename)
     if(!inpfile.is_open())
     {
         cout << "Error: Bird file wasn't opened." << endl;
-        return -1;
+        exit(-1);
     }
     string line, subst;
     
@@ -20,24 +20,31 @@ int InputController::getBirdFile(string filename)
     {
         stringstream strStream(line);
         Vec3Cord readenV;
-        int i = 0;
+        int count_vars = 0;
         while (getline(strStream, subst, ' '))
         {
-            if (i % 3 == 0)
-                readenV.x = (stof(subst));
-            else
-            {
-                if (i % 3 == 1)
-                    readenV.y = (stof(subst));
+            if (subst.find_first_not_of("-.0123456789") == string::npos) {
+                if (count_vars % 3 == 0)
+                    readenV.x = (stof(subst));
                 else
-                    readenV.z = (stof(subst));
+                {
+                    if (count_vars % 3 == 1)
+                        readenV.y = (stof(subst));
+                    else
+                        readenV.z = (stof(subst));
+                }
+                count_vars++;
             }
-            i++;
+            else {
+                cout << "Error: uncorrect file format." << endl;
+                exit(-2);
+            }
+        
         }
-        if (i != 3)
+        if (count_vars != 3)
         {
             cout << "Error: uncorrect file format." << endl;
-            return -2;
+            exit(-2);
         }
         dat.setPigStartPos(readenV);
     }
@@ -53,7 +60,7 @@ int InputController::getCarFile(string filename)
     if(!inpfile.is_open())
     {
         cout << "Error: Car file wasn't opened." << endl;
-        return -1;
+        exit(-1);
     }
     string line, subst;
     
@@ -61,28 +68,34 @@ int InputController::getCarFile(string filename)
     {
         stringstream strStream(line);
         Vec3Cord readenV;
-        int i = 0;
+        int count_vars = 0;
         while (getline(strStream, subst, ' '))
         {
-            if (i % 3 == 0)
-                readenV.x = (stof(subst));
-            else
-            {
-                if (i % 3 == 1)
-                    readenV.y = (stof(subst));
+            if (subst.find_first_not_of("-.0123456789") == string::npos) {
+                if (count_vars % 3 == 0)
+                    readenV.x = (stof(subst));
                 else
-                    readenV.z = (stof(subst));
+                {
+                    if (count_vars % 3 == 1)
+                        readenV.y = (stof(subst));
+                    else
+                        readenV.z = (stof(subst));
+                }
+                count_vars++;
             }
-            i++;
+            else {
+                cout << "Error: uncorrect file format." << endl;
+                exit(-2);
+            }
+        
         }
-        if (i != 3)
+        if (count_vars != 3)
         {
             cout << "Error: uncorrect file format." << endl;
-            return -2;
+            exit(-2);
         }
         dat.setCarPoint(readenV);
     }
     inpfile.close();
     return 1;
 }
-
