@@ -20,9 +20,9 @@ private:
     //Each boid attempts to match the velocity of other boids inside its visible range.
     // Each boid steers gently toward the center of mass of other boids within its visible range.
 
-    struct coef; // sep align cohes turnfactor carDist carDodge
-    struct searchRad;    // sep align cohes edges
-    struct Margin;//left right bottom top
+    static struct coef; // sep align cohes turnfactor carDist carDodge
+    static struct searchRad;    // sep align cohes edges
+    static struct Margin;//left right bottom top
 public:
     Pigeon(Vec3Cord, FieldBehaviour*);
     ~Pigeon();
