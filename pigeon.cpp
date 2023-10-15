@@ -4,35 +4,18 @@
 using namespace std;
 #include "coord.h"
 
-static struct Pigeon::coef {
-    float sep = 0.1;
-    float align = 0.05;
-    float cohes = 0.02;
-    float turnfactor = 0.2;
-    float carDist = 1.0;
-    float carDodge = 0.3;
-};
 
-static struct Pigeon::searchRad {
-    int sep = 3;
-    int align = 5;
-    int cohes = 10;
-    int edges = 20;
-};
-
-static struct Pigeon::Margin {
-    int left = -30;
-    int right = 30;
-    int bottom = -30;
-    int top = 30;
-};
+CoefStruct Pigeon::coef;
+searchRadStruct Pigeon::searchRad;
+MarginStruct Pigeon::Margin;
 
 Pigeon::Pigeon(Vec3Cord startPos, FieldBehaviour* f): pos(startPos), fieldBeh(f){
     
    // pos.push_back(0); //TODO: multipe init!!!
    // pos.push_back(0);
-   pos = startPos;
-   fieldBeh = f;
+    pos = startPos;
+    fieldBeh = f;
+
 }
 
 Vec3Cord Pigeon::getpos(){ return pos;}
@@ -130,4 +113,3 @@ void Pigeon::AvoidEdges()
 Pigeon::~Pigeon()
 {
 }
-
