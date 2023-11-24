@@ -41,9 +41,11 @@ void Pigeon::move()
 void Pigeon::CarDodge(){
     Creature* car = dat.getCar();
     Vec3Cord carPos = car->getpos();
+    float StressCoef = 1/(dat.distance(pos,carPos));
     if(dat.distance(pos,carPos)<coef.carDist){
-        speedVector.x+=carPos.x * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge;
-        speedVector.y+=carPos.y * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge;
+        speedVector.x+=carPos.x * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge * StressCoef;
+        speedVector.y+=carPos.y * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge * StressCoef;
+        speedVector.z+=carPos.z * (dat.distance(pos,carPos)-coef.carDist)*coef.carDodge * StressCoef;
     }
 
 }
