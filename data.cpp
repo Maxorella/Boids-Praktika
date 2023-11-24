@@ -38,7 +38,7 @@ int Data::getPigeonsCount(){return startPigeonsPoses.size();}
 
 //int Data::getcarfilesize(){return carPosesInstruction.size();};
 
-float Data::distance(Vec3Cord vec3a, Vec3Cord vec3b ){ return sqrt(pow(vec3a.x-vec3b.x,2)+pow(vec3a.y-vec3b.y,2)); } //TODO: на три координаты
+float Data::distance(Vec3Cord vec3a, Vec3Cord vec3b ){ return sqrt(pow(vec3a.x-vec3b.x,2)+pow(vec3a.y-vec3b.y,2)+pow(vec3a.z-vec3b.z,2)); }
 
 Vec3Cord Data::getCarPoint(int pos){ return carPosesInstruction[pos];}
 
