@@ -14,22 +14,36 @@ struct CoefStruct {
     float align = 0.05;
     float cohes = 0.02;
     float turnfactor = 0.2;
-    float carDist = 1.0;
-    float carDodge = 0.3;
+    float carDodge = 2;
+    float streesGainerC=0.1; // коэф добавления стресса
+    float FlyingStressMultp = 2; // во сколько раз летаюшие больше раздражают
+    float CarStressMultp = 5; //во сколько раз МАШИНА больше раздражают
+    float PorogStress=10; // пороговый стресс для взлёта
+    float StressInitCoef=2; // на каждую единицу z*coef - начальный стресс птицы
+    float FoodCoef=0.4;
+    float PassiveStressReduce = 2; // пассивное уменьш стресса
 };
 
 struct searchRadStruct {
     int sep = 3;
     int align = 5;
     int cohes = 10;
-    int edges = 20;
+    float carDist = 5.0; // дистанция боязни машины
+    float MinstressBirdDist = 20;
+    float MaxstressBirdDist = 2;
+    float stressCarDist = 30;
+    float foodSearchRad = 20; // радиус поиска еды
+    float MaxSpeedFoodRad = 2;
+   // int edges = 20;
 };
 
 struct MarginStruct {
-    int left = -30;
-    int right = 30;
-    int bottom = -30;
-    int top = 30;
+    MarginStruct(){}
+    MarginStruct(int UP, int DOWN, int RIGHT, int LEFT):top(UP),bottom(DOWN),right(RIGHT),left(LEFT){}
+    int left = -20;
+    int right = 20;
+    int bottom = -20;
+    int top = 20;
 };
 
 
@@ -39,12 +53,25 @@ private:
     Vec3Cord pos;
     Vec3Cord speed;
     Vec3Cord speedVector;
+    bool flying = false;
+    double stress = 0;
     FieldBehaviour* fieldBeh;
     Data dat;
     // Each boid attempts to avoid running into other boids. If two or more boids get too close to one another
     //Each boid attempts to match the velocity of other boids inside its visible range.
     // Each boid steers gently toward the center of mass of other boids within its visible range.
 
+    void Separation();
+    void Alignment();
+    void Cohesion();
+    void AvoidEdges();
+    void CarDodge();
+    void StressControl();
+    void GoToFood();
+    void StartFlying();
+    void EndFlying();
+    void StressAdder();
+    void StressReducer();
     
 public:
     Pigeon(Vec3Cord, FieldBehaviour*);
@@ -55,13 +82,8 @@ public:
     void behave();
     void move();
     Vec3Cord getpos();
-    void Separation();
-    void Alignment();
-    void Cohesion();
     Vec3Cord getspeed();
-    void AvoidEdges();
-    void CarDodge();
-
+    virtual bool isFlying();
 };
 
 

@@ -1,0 +1,53 @@
+{
+name:"Field"
+up down right left
+Field:(-40 40 40 -40)
+}
+
+
+{
+name:"Bird"
+pos:(10.4 2.2 0)
+}
+
+{
+name:"Bird"
+pos:(2.4 2.2 0)
+}
+
+
+{
+name:"Bird"
+pos:(-3 -5 0)
+}
+
+
+{
+name:"Bird"
+pos:(4 -5 0)
+}
+
+{
+name:"Car"
+point:(1 1)
+point:(1 10)
+point:(10 10)
+point:(10 3)
+}
+
+{name:"Food"
+pos:(1 2)}
+
+{name:"Food"
+pos:(3 5)}
+
+{name:"Food"
+pos:(2 4)}
+
+
+{name:"Food"
+pos:(10 10)}
+
+
+{name:"Food"
+pos:(0 10)}

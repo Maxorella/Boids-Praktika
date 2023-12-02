@@ -18,7 +18,7 @@ private:
     Vec3Cord targetPos;
     Vec3Cord speedVector;
     Vec3Cord speed;
-    float speedCoef=0.1f;
+    float speedCoef=0.3f;
 public:
     Vec3Cord getpos();
     Vec3Cord getspeed();

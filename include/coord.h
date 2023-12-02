@@ -1,6 +1,7 @@
 
 #ifndef BOIDS_COORD_H
 #define BOIDS_COORD_H
+#include <cmath>
 struct Vec3Cord{
     float x;
     float y;
@@ -12,5 +13,6 @@ struct Vec3Cord{
         y=p.y;
         z=p.z;
     }
+   // float GetLength(){return sqrt(x*x+y*y+z*z);}
 };
 #endif //BOIDS_COORD_H
