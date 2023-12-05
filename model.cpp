@@ -35,7 +35,7 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b),
 
 
 void Model::simulate(){
-    for(int j=0; j<2000; j++){
+    for(int j=0; j<4000; j++){
         behavController->allBehave();
         behavController->allMove();
         timer+=1;

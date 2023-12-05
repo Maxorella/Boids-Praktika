@@ -1,53 +1,89 @@
 {
 name:"Field"
 up down right left
-Field:(-40 40 40 -40)
+Field:(-30 30 30 -30)
 }
 
 
 {
 name:"Bird"
-pos:(10.4 2.2 0)
+pos:(0 0 0)
 }
 
 {
 name:"Bird"
-pos:(2.4 2.2 0)
+pos:(12 0 0)
+}
+
+{
+name:"Bird"
+pos:(7 2 0)
+}
+
+{
+name:"Bird"
+pos:(2 6 0)
+}
+
+{
+name:"Bird"
+pos:(12 6 0)
+}
+
+{
+name:"Bird"
+pos:(7 8 0)
+}
+
+{
+name:"Bird"
+pos:(12 9 4)
 }
 
 
 {
 name:"Bird"
-pos:(-3 -5 0)
+pos:(15 9 4)
 }
 
 
 {
 name:"Bird"
-pos:(4 -5 0)
+pos:(12 11 4)
 }
 
 {
 name:"Car"
-point:(1 1)
-point:(1 10)
-point:(10 10)
-point:(10 3)
+point:(2 10)
+point:(17 1)
+point:(2 10)
+point:(17 1)
 }
 
-{name:"Food"
-pos:(1 2)}
 
 {name:"Food"
-pos:(3 5)}
-
-{name:"Food"
-pos:(2 4)}
+pos:(2 2)}
 
 
 {name:"Food"
-pos:(10 10)}
+pos:(10 2)}
 
 
 {name:"Food"
-pos:(0 10)}
+pos:(7 5)}
+
+
+{name:"Food"
+pos:(5 6)}
+
+
+{name:"Food"
+pos:(10 7)}
+
+
+{name:"Food"
+pos:(2 2)}
+
+
+{name:"Food"
+pos:(7 8)}

@@ -2,16 +2,17 @@ import matplotlib
 import matplotlib.pyplot as plt
 import glob
 from PIL import Image
+from math import  *
 
 Params = {
-    'NumbersNearPoint': False,
+    'NumbersNearPoint': True,
     'AnnotateFontSize': 4,
     'ColorPlot': True,
     'LeftBorder': -40,
     'RightBorder': +40,
     'BottomBorder': -40,
     'TopBorder': +40,
-    'MaxHeight': +20,
+    'MaxHeight': +10,
     'DebugShow': False,
     'SaveRez': True,
     'Dpi': 400,
@@ -42,8 +43,7 @@ for Filename in OutFilesList:
             yfood.append(float(l[1]))
             zfood.append(0)  # для машины
             if (Params['NumbersNearPoint']):
-                plt.annotate(str(zfood[-1]), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1),
-                             fontsize=Params['AnnotateFontSize'])
+                plt.annotate(str(round(zfood[-1],2)),  (round(float(l[0]),2) , round(float(l[1]),2)), (round(float(l[0]) + 0.1,2) , round(float(l[1]) + 0.1,2)  ), fontsize=Params['AnnotateFontSize'])
 
             continue
 
@@ -56,13 +56,13 @@ for Filename in OutFilesList:
             yfood.append(float(l[1]))
             zfood.append(0) # пометка для еды TODO можно сделать лучше
             if (Params['NumbersNearPoint']):
-                plt.annotate(str(zfood[-1]), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
+                plt.annotate(str(round(zfood[-1],2)), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
         else:
             x.append(float(l[0]))
             y.append(float(l[1]))
             z.append(float(l[2]))
             if(Params['NumbersNearPoint']):
-                plt.annotate(str(l[2]), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
+                plt.annotate(str(round(float(l[2]),2)), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
 
     plt.xlim(Params['LeftBorder'], Params['RightBorder'])
     plt.ylim(Params['BottomBorder'], Params['TopBorder'])

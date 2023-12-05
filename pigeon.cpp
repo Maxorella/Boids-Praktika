@@ -12,6 +12,7 @@ MarginStruct Pigeon::Margin;
 Pigeon::Pigeon(Vec3Cord startPos, FieldBehaviour* f): fieldBeh(f){ //pos(startPos),
     if(startPos.z!=0){ // если птица летает
         stress=startPos.z*coef.StressInitCoef;
+        prevstress=stress;
         flying= true;
         pos=startPos;
     } else{
@@ -30,6 +31,7 @@ bool Pigeon::isFlying(){
 
 void Pigeon::behave()
 {
+    prevstress=stress;
     speedVector.x=0; speedVector.y=0; speedVector.z=0;
     this->StressControl(); // отвечает за стресс и взлёт-посадку
     this->GoToFood(); // отвечает за полёт/приближение к еде
@@ -38,6 +40,8 @@ void Pigeon::behave()
     this->Cohesion();
     this->AvoidEdges();
     this->CarDodge();
+    this->FlyHigher();
+    this->LookPlaceLand();
 }
 
 void Pigeon::move()
@@ -45,7 +49,46 @@ void Pigeon::move()
     speed=speedVector;
     pos.x+=speed.x* dat.getTimeMultpl();
     pos.y+=speed.y* dat.getTimeMultpl();
+    pos.z+=speed.z* dat.getTimeMultpl();
+    if(flying && pos.z <searchRad.StartHeight) {
+        pos.z = searchRad.StartHeight; // TODO защита от кротов
+    }
 }
+
+void Pigeon::LookPlaceLand() {
+    if(pos.z > 3){
+
+        float xPosAvg = 0;
+        float yPosAvg = 0;
+        int neighbCount = 0;
+        vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad.LookPlaceInRad);
+        for(int i=0; i<nearCr.size(); i++)
+        {
+            xPosAvg+=nearCr[i]->getpos().x;
+            yPosAvg+=nearCr[i]->getpos().y;
+            neighbCount+=1;
+        }
+        if(nearCr.size()!=0){ // рядом никого нету проверка чтобы в бесконечность не уходить
+            xPosAvg/=(float)neighbCount;
+            yPosAvg/=(float)neighbCount;
+            speedVector.x-=(xPosAvg-pos.x)*coef.LookPlaceTolandC; // улёт от птиц
+            speedVector.y-=(yPosAvg-pos.y)*coef.LookPlaceTolandC;
+        }
+    }
+}
+
+
+
+void Pigeon::FlyHigher(){
+    if (flying){
+        if (stress<coef.PorogStress+5){ // TODO: подправить снижение если стресс закончился
+            speedVector.z-= 0.15; // стремительно снижаемся
+        }
+        speedVector.z += (stress-prevstress)*coef.StressHeightProp;
+    }
+}
+
+
 
 void Pigeon::GoToFood() {
     Creature* nearFood =fieldBeh->getNearFood(pos,searchRad.foodSearchRad);
@@ -53,66 +96,82 @@ void Pigeon::GoToFood() {
     if(nearFood== nullptr){
         return;
     }
-    if (dat.distance2d(nearFood->getpos(),pos)<0.3f){
+    if (!flying && dat.distance2d(nearFood->getpos(),pos)<0.3f){
         dat.RemoveFood(nearFood); // если пора скушать еду!!!
         return;
     }
 
-    //float procent = dat.distance(pos,nearFood->getpos())/searchRad.foodSearchRad; // насколько мы близки к еде от 0 до 1 НЕ НУЖНО
-    Vec3Cord govector;
-    govector.x = nearFood->getpos().x - pos.x;
-    govector.y = nearFood->getpos().y - pos.y;
-    float lent = sqrt(govector.x*govector.x+govector.y*govector.y);
+
+
+    Vec3Cord govector; // птица - еда вектор
+    govector.x =nearFood->getpos().x- pos.x;
+    govector.y =  nearFood->getpos().y -pos.y;
+    govector.z = nearFood->getpos().z-pos.z;
+    float lent = sqrt(govector.x*govector.x+govector.y*govector.y+govector.z*govector.z);
     govector.x = govector.x/lent;
     govector.y = govector.y/lent; // получили единичный вектор направления
-    speedVector.x+=coef.FoodCoef*govector.x;
-    speedVector.y+=coef.FoodCoef*govector.y; // идём в сторону еды
-
+    govector.z = govector.z/lent; // получили единичный вектор направления
+    speedVector.x+=coef.FoodCoefXY*govector.x;
+    speedVector.y+=coef.FoodCoefXY*govector.y; // идём в сторону еды
+    if(flying && pos.z < 3){ // летим к еде если не слишком высоко // TODO подумать как лучше
+            speedVector.z += govector.z * coef.FoodFlyingCoef; //TODO могут стать кротами
+    }
+        //float procent = dat.distance(pos,nearFood->getpos())/searchRad.foodSearchRad; // насколько мы близки к еде от 0 до 1 НЕ НУЖНО
 }
 
 void Pigeon::StressAdder() {
-    vector<Creature*> onEarth = fieldBeh->getNearCreaturesEarth(this->pos,searchRad.MinstressBirdDist);
-    for(int i=0; i<onEarth.size();i++){
-        stress+= (dat.distance2d(this->pos,onEarth[i]->getpos())-searchRad.MaxstressBirdDist)/(searchRad.MinstressBirdDist-searchRad.MaxstressBirdDist) * coef.streesGainerC;
+    vector<Creature *> onEarth = fieldBeh->getNearCreaturesEarth(this->pos, searchRad.MinstressBirdDist);
+    for (int i = 0; i < onEarth.size(); i++) {
+        stress += (dat.distance2d(this->pos, onEarth[i]->getpos()) - searchRad.MaxstressBirdDist) /
+                  (searchRad.MinstressBirdDist - searchRad.MaxstressBirdDist) * coef.streesGainerC;
     }
 
-    vector<Creature*> onFly = fieldBeh->getNearCreaturesFlying(this->pos,searchRad.MinstressBirdDist);
-    for(int i=0; i<onFly.size();i++){
-        stress+= (dat.distance(this->pos,onFly[i]->getpos())-searchRad.MaxstressBirdDist)/(searchRad.MinstressBirdDist-searchRad.MaxstressBirdDist) * coef.streesGainerC * coef.FlyingStressMultp;
+    vector<Creature *> onFly = fieldBeh->getNearCreaturesFlying(this->pos, searchRad.MinstressBirdDist);
+    for (int i = 0; i < onFly.size(); i++) {
+        stress += (dat.distance(this->pos, onFly[i]->getpos()) - searchRad.MaxstressBirdDist) /
+                  (searchRad.MinstressBirdDist - searchRad.MaxstressBirdDist) * coef.streesGainerC *
+                  coef.FlyingStressMultp;
     }
+
+    Creature *carr = dat.getCar();
+    if (dat.distance(pos, carr->getpos()) < searchRad.stressCarDist) { // стресс от машины
+        stress += (searchRad.stressCarDist - dat.distance(pos, carr->getpos())) *coef.CarStressMultp * coef.streesGainerC;
+    }
+
 
 
 }
 
 void Pigeon::StressReducer() {
     stress-=coef.PassiveStressReduce;
+    stress-=pos.z * coef.StressHeightReduceC; // TODO дополнительное уменьш стресса от высоты
     if (stress<0){
         stress=0; // стресс меньше нуля не может быть
     }
-
+    cout << stress << endl;
 
 }
 
 void Pigeon::StressControl() {
-/*
-    Creature* car = dat.getCar();
-    Vec3Cord carPos = car->getpos();
-    vector<Creature*> nearCreatures = fieldBeh->getNearCreatures(pos, searchRad.stressBirdDist);
-    for(int i=0; i<nearCreatures.size(); i++)
-    {
-        int multupl;
-        if nearCreatures // d
-        stress+= searchRad.stressBirdDist
-        // прибавляем стресс от находящихся рядом птиц!!!
+    this->StressAdder();
+    this->StressReducer();
+    if(stress>coef.PorogStress){
+        this->StartFlying();
+    } else if(stress < coef.PorogStress && pos.z < searchRad.LandingHeight){ //  pos.z < 0.3f - высота посадки
+        this->EndFlying();
     }
-*/
+
+
 }
 
 void Pigeon::StartFlying() {
-
+    flying= true; // взлетаем
+    pos.z = searchRad.StartHeight; //нач высота отрыва
 }
 
 void Pigeon::EndFlying() {
+    flying= false; // садимся
+    pos.z = 0; //посадка
 
 }
 
@@ -120,66 +179,160 @@ void Pigeon::EndFlying() {
 void Pigeon::CarDodge(){
     Creature* car = dat.getCar();
     Vec3Cord carPos = car->getpos();
+    Vec3Cord PigCarVec; // вектор направления (нач)птица-машина(конец)
+    PigCarVec.x = carPos.x - pos.x;
+    PigCarVec.y = carPos.y - pos.y;
+    PigCarVec.z = carPos.z - pos.z;
+
+
     if(dat.distance(pos,carPos)<searchRad.carDist){
-        speedVector.x+=carPos.x * (dat.distance(pos,carPos)-searchRad.carDist)*coef.carDodge;
-        speedVector.y+=carPos.y * (dat.distance(pos,carPos)-searchRad.carDist)*coef.carDodge;
+        speedVector.x+=  -(searchRad.carDist-PigCarVec.x)  *coef.carDodge;
+        speedVector.y+=  -(searchRad.carDist-PigCarVec.y)  *coef.carDodge;
+
+        if (flying){
+            speedVector.z+=(searchRad.carDist-PigCarVec.z)  *coef.carDodge;
+        }
+
     }
 }
 
 
 void Pigeon::Separation()
 {
-    vector<Creature*> nearCreatures = fieldBeh->getNearCreatures(pos, searchRad.sep);
-    float closeDx=0;
-    float closeDy=0;
-    for(int i=0; i<nearCreatures.size(); i++)
-    {
-        closeDx+=pos.x - nearCreatures[i]->getpos().x;
-        closeDy+=pos.x - nearCreatures[i]->getpos().y;
+    if (flying){
+        vector<Creature*> nearCreatures = fieldBeh->getNearCreaturesFlying(pos, searchRad.sep);
+        float closeDx=0;
+        float closeDy=0;
+        float closeDz=0;
+        for(int i=0; i<nearCreatures.size(); i++)
+        {
+            closeDx+=pos.x - nearCreatures[i]->getpos().x;
+            closeDy+=pos.y - nearCreatures[i]->getpos().y;
+            closeDz+=pos.z - nearCreatures[i]->getpos().z;
+        }
+        speedVector.x += closeDx*coef.sep;
+        speedVector.y += closeDy*coef.sep;
+        speedVector.z += closeDz*coef.sep; // TODO тут может быть ошибка
+
+
     }
-    speedVector.x += closeDx*coef.sep;
-    speedVector.y += closeDy*coef.sep;
+    else{
+
+        vector<Creature*> nearCreatures = fieldBeh->getNearCreaturesEarth(pos, searchRad.sep);
+        float closeDx=0;
+        float closeDy=0;
+        for(int i=0; i<nearCreatures.size(); i++)
+        {
+            closeDx+=pos.x - nearCreatures[i]->getpos().x;
+            closeDy+=pos.y - nearCreatures[i]->getpos().y;
+        }
+        speedVector.x += closeDx*coef.sep;
+        speedVector.y += closeDy*coef.sep;
+    }
     
 }
 void Pigeon::Alignment()
 {
-    float xVelocityAvg = 0;
-    float yVelocityAvg = 0;
-    int neighbCount = 0;
-    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad.align);
-    for(int i=0; i<nearCr.size(); i++)
-    {
-        xVelocityAvg+=nearCr[i]->getspeed().x;
-        yVelocityAvg+=nearCr[i]->getspeed().y;
-        neighbCount+=1;
+    if (flying){
+        float xVelocityAvg = 0;
+        float yVelocityAvg = 0;
+        float zVelocityAvg = 0;
+
+        int neighbCount = 0;
+        vector<Creature*> nearCr = fieldBeh->getNearCreaturesFlying(pos, searchRad.align);
+        for(int i=0; i<nearCr.size(); i++)
+        {
+            xVelocityAvg+=nearCr[i]->getspeed().x;
+            yVelocityAvg+=nearCr[i]->getspeed().y;
+            zVelocityAvg+=nearCr[i]->getspeed().z;
+            neighbCount+=1;
+        }
+        if (neighbCount>0)
+        {
+            xVelocityAvg = xVelocityAvg/(float)neighbCount;
+            yVelocityAvg = yVelocityAvg/(float)neighbCount;
+        }
+        speedVector.x += (xVelocityAvg - speed.x)*coef.align;
+        speedVector.y += (yVelocityAvg - speed.y)*coef.align;
+        speedVector.z += (zVelocityAvg - speed.z)*coef.align;
+
+
+
+
+
+    } else{
+        float xVelocityAvg = 0;
+        float yVelocityAvg = 0;
+        int neighbCount = 0;
+        vector<Creature*> nearCr = fieldBeh->getNearCreaturesEarth(pos, searchRad.align);
+        for(int i=0; i<nearCr.size(); i++)
+        {
+            xVelocityAvg+=nearCr[i]->getspeed().x;
+            yVelocityAvg+=nearCr[i]->getspeed().y;
+            neighbCount+=1;
+        }
+        if (neighbCount>0)
+        {
+            xVelocityAvg = xVelocityAvg/(float)neighbCount;
+            yVelocityAvg = yVelocityAvg/(float)neighbCount;
+        }
+        speedVector.x += (xVelocityAvg - speed.x)*coef.align;
+        speedVector.y += (yVelocityAvg - speed.y)*coef.align;
+
     }
-    if (neighbCount>0)
-    {
-        xVelocityAvg = xVelocityAvg/neighbCount;
-        yVelocityAvg = yVelocityAvg/neighbCount;
-    }
-    speedVector.x += (xVelocityAvg - speed.x)*coef.align;
-    speedVector.y += (yVelocityAvg - speed.y)*coef.align;
+
+
+
 }
 
 void Pigeon::Cohesion()
 {
-    float xPosAvg = 0;
-    float yPosAvg = 0;
-    int neighbCount = 0;
-    vector<Creature*> nearCr = fieldBeh->getNearCreatures(pos, searchRad.cohes);
-    for(int i=0; i<nearCr.size(); i++)
-    {
-        xPosAvg+=nearCr[i]->getpos().x;
-        yPosAvg+=nearCr[i]->getpos().y;
-        neighbCount+=1;
+    if (flying){
+        float xPosAvg = 0;
+        float yPosAvg = 0;
+        float zPosAvg = 0;
+        int neighbCount = 0;
+        vector<Creature*> nearCr = fieldBeh->getNearCreaturesFlying(pos, searchRad.cohes);
+        for(int i=0; i<nearCr.size(); i++)
+        {
+            xPosAvg+=nearCr[i]->getpos().x;
+            yPosAvg+=nearCr[i]->getpos().y;
+            zPosAvg+=nearCr[i]->getpos().z;
+            neighbCount+=1;
+        }
+        if(nearCr.size()!=0) { // рядом никого нету проверка чтобы в бесконечность не уходить
+            xPosAvg /= (float) neighbCount;
+            yPosAvg /= (float) neighbCount;
+            zPosAvg /= (float) neighbCount;
+            speedVector.x += (xPosAvg - pos.x) * coef.cohes;
+            speedVector.y += (yPosAvg - pos.y) * coef.cohes;
+            speedVector.z += (zPosAvg - pos.z) * coef.cohes;
+        }
+
+
+    } else{
+
+
+        float xPosAvg = 0;
+        float yPosAvg = 0;
+        int neighbCount = 0;
+        vector<Creature*> nearCr = fieldBeh->getNearCreaturesEarth(pos, searchRad.cohes);
+        for(int i=0; i<nearCr.size(); i++)
+        {
+            xPosAvg+=nearCr[i]->getpos().x;
+            yPosAvg+=nearCr[i]->getpos().y;
+            neighbCount+=1;
+        }
+        if(nearCr.size()!=0){ // рядом никого нету проверка чтобы в бесконечность не уходить
+            xPosAvg/=(float)neighbCount;
+            yPosAvg/=(float)neighbCount;
+            speedVector.x+=(xPosAvg-pos.x)*coef.cohes;
+            speedVector.y+=(yPosAvg-pos.y)*coef.cohes;
+        }
+
     }
-    if(nearCr.size()!=0){ // рядом никого нету проверка чтобы в бесконечность не уходить
-        xPosAvg/=neighbCount;
-        yPosAvg/=neighbCount;
-        speedVector.x+=(xPosAvg-pos.x)*coef.cohes;
-        speedVector.x+=(yPosAvg-pos.y)*coef.cohes;
-    }
+
+
 }
 void Pigeon::AvoidEdges()
 {
