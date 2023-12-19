@@ -239,7 +239,7 @@ void Pigeon::Separation()
         }
         speedVector.x += closeDx*coef.sep;
         speedVector.y += closeDy*coef.sep;
-        speedVector.z += closeDz*coef.sep; // TODO тут может быть ошибка
+      //  speedVector.z += closeDz*coef.sep; // TODO тут может быть ошибка
 
 
     }
