@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import glob
 from PIL import Image
 from math import  *
+from matplotlib import cm  # Add this line
 
 Params = {
     'NumbersNearPoint': True,
@@ -44,11 +45,38 @@ for Filename in OutFilesList:
             zfood.append(0)  # для машины
             if (Params['NumbersNearPoint']):
                 plt.annotate(str(round(zfood[-1],2)),  (round(float(l[0]),2) , round(float(l[1]),2)), (round(float(l[0]) + 0.1,2) , round(float(l[1]) + 0.1,2)  ), fontsize=Params['AnnotateFontSize'])
+            continue
+
+        if len(l) == 4:
+            x_center = float(l[0])
+            y_center = float(l[1])
+            z_center = float(l[2])
+            radius = float(l[3])
+
+            norm = plt.Normalize(vmin=0, vmax=Params['MaxHeight'])
+            color = cm.RdYlBu(norm(z_center))
+
+            circle = plt.Circle((x_center, y_center), radius, color=color, fill=True)
+            plt.gca().add_patch(circle)
+
+            if Params['NumbersNearPoint']:
+                plt.annotate(str(round(z_center, 2)), (x_center, y_center), (x_center + 0.1, y_center + 0.1),
+                             fontsize=Params['AnnotateFontSize'])
 
             continue
 
+
         if (len(l)) == 1:
             NextFood = True
+            continue
+
+
+        if (len(l)==3):
+            x.append(float(l[0]))
+            y.append(float(l[1]))
+            z.append(float(l[2]))
+            if(Params['NumbersNearPoint']):
+                plt.annotate(str(round(float(l[2]),2)), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
             continue
 
         if (len(l)) == 2:
@@ -57,12 +85,8 @@ for Filename in OutFilesList:
             zfood.append(0) # пометка для еды TODO можно сделать лучше
             if (Params['NumbersNearPoint']):
                 plt.annotate(str(round(zfood[-1],2)), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
-        else:
-            x.append(float(l[0]))
-            y.append(float(l[1]))
-            z.append(float(l[2]))
-            if(Params['NumbersNearPoint']):
-                plt.annotate(str(round(float(l[2]),2)), (float(l[0]), float(l[1])), (float(l[0]) + 0.1, float(l[1]) + 0.1), fontsize=Params['AnnotateFontSize'])
+            continue
+
 
     plt.xlim(Params['LeftBorder'], Params['RightBorder'])
     plt.ylim(Params['BottomBorder'], Params['TopBorder'])

@@ -17,6 +17,9 @@ private:
     void parseFood(string Mystr);
     void parseCar(string Mystr);
     void parseBird(string Mystr);
+    void parseObst(std::string  Mystr);
+    Vec4Cord parse4Pos(string Mystr);// работает
+    
 public:
     int getBirdFile(string filename);
     int getCarFile(string filename);

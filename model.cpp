@@ -6,6 +6,8 @@
 #include "model.h"
 #include "input.h"
 #include "food.h"
+#include "obstacle.h"
+
 using namespace std;
 Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b), birdFileName(bfile), carFileName(cfile){ // работает
     InputController inputControl;
@@ -29,6 +31,13 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b),
         Food* food =  new Food(dat.GetFoodStart(i), b);
         dat.SetFood(food);
     }
+
+    for (int i =0; i<dat.getObstCount(); i++){
+        //  cout << dat.getPigStartPos(i).x << dat.getPigStartPos(i).y << dat.getPigStartPos(i).z << endl;
+        Obstacle* obst =  new Obstacle(dat.getObstStartPos(i), b);
+        dat.setObst(obst);
+    }
+
 
 
 }

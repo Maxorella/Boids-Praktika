@@ -44,6 +44,56 @@ Vec3Cord InputController::parsePos(string Mystr) { // работает
     return cordtoOut;
 }
 
+
+Vec4Cord InputController::parse4Pos(string Mystr) { // работает
+    Mystr = Mystr + ' ';
+    string coord = Mystr.substr(0, Mystr.find(' '));
+    Vec4Cord cordtoOut;
+    try {
+        cordtoOut.x = stof(coord);
+    } catch (std::exception const &e) {
+        cout << "error : " << e.what() << endl;
+        exit(-1);
+    }
+
+
+    Mystr = Mystr.substr(Mystr.find(' ') + 1, string::npos);
+    coord = Mystr.substr(0, Mystr.find(' '));
+
+    try {
+        cordtoOut.y = stof(coord);
+    } catch (std::exception const &e) {
+        cout << "error : " << e.what() << endl;
+        exit(-1);
+    }
+    // проверить что может не быть координаты
+
+    Mystr = Mystr.substr(Mystr.find(' ') + 1, string::npos);
+    coord = Mystr.substr(0, Mystr.find(' '));
+
+    try {
+        cordtoOut.z = stof(coord);
+    } catch (std::exception const &e) {
+        cout << "error : " << e.what() << endl;
+        exit(-1);
+    }
+
+
+    Mystr = Mystr.substr(Mystr.find(' ') + 1, string::npos);
+    coord = Mystr.substr(0, Mystr.find(' '));
+
+    try {
+        cordtoOut.r = stof(coord);
+    } catch (std::exception const &e) {
+        cout << "error : " << e.what() << endl;
+        exit(-1);
+    }
+
+    return cordtoOut;
+}
+
+
+
 void InputController::parseFood(string Mystr) {
     string poss = Mystr.substr(Mystr.find('(') + 1, Mystr.find(')') - Mystr.find('(') - 1);
     Vec3Cord cords = parsePos(poss);
@@ -96,6 +146,15 @@ void InputController::parseBird(std::string Mystr) { // работает
     dat.setPigStartPos(cords);
 }
 
+
+void InputController::parseObst(std::string  Mystr){
+    string poss = Mystr.substr(Mystr.find('(') + 1, Mystr.find(')') - Mystr.find('(') - 1);
+
+    Vec4Cord cords = parse4Pos(poss);
+    dat.setObstStartPos(cords);
+}
+
+
 void InputController::parseComas(string Mystr) {
     cout << "HERE" << endl;
     cout << Mystr << endl;
@@ -114,6 +173,8 @@ void InputController::parseComas(string Mystr) {
         parseCar(Mystr);
     } else if (name == "Field") {
         parseField(Mystr);
+    } else if(name =="Obstacle"){
+      parseObst(Mystr);
     } else {
         cerr << "Not Found Name" << endl;
         exit(-1);

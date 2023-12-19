@@ -17,9 +17,10 @@ public:
     vector<Creature*> getNearCreatures(Vec3Cord nearPos, float inRadius);
     vector<Creature*> getNearCreaturesEarth(Vec3Cord nearPos, float inRadius);
     vector<Creature*> getNearCreaturesFlying(Vec3Cord nearPos, float inRadius);
-
-    Creature* getNearFood(Vec3Cord nearPos, float inRadius);
-
+    //vector<Creature*> getHighest(Vec3Cord nearPos, float inRadius);
+    Creature* getHighestObstacle(Vec3Cord nearPos, float inRadius);//TODO
+    Creature *getNearFood(Vec3Cord nearPos, float inRadius);
+    vector<Creature*> GetNearObstacles(Vec3Cord nearPos, float inRadius);
 };
 
 #endif

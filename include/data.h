@@ -19,7 +19,9 @@ private:
     static vector<Vec3Cord> startPigeonsPoses; // - координаты птиц
     static vector<Vec3Cord> startFoodPoses;
     static vector<Vec3Cord> carPosesInstruction; // - координаты машин
+    static vector<Vec4Cord> startObstPoses; // - иниц коорд препятств
     static vector<Creature*> FoodInMeadow;
+    static vector<Creature*> obstacles; // - позиции препятствий
    // static int pointCount;
     //static vector<vector<float> > outfile;
 public:
@@ -65,6 +67,18 @@ public:
     Creature* GetFoodPos(int pos);
 
     bool RemoveFood(Creature* ptr);
+
+
+    void setObstStartPos(Vec4Cord);
+    Vec4Cord getObstStartPos(int);
+
+    Creature* getObst(int);
+    void setObst(Creature*);
+
+    int getObstCount();
+
+    Vec4Cord getObstStartPos();
+
     ~Data(){};
 };
 

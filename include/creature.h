@@ -13,8 +13,8 @@ public:
     virtual void move()=0;
     virtual Vec3Cord getpos()=0;
     virtual Vec3Cord getspeed()=0;
-    virtual bool isFlying(){}
-
+    virtual bool isFlying(){ return false;};
+    virtual  float getRadius(){return 0;}
 };
 
 

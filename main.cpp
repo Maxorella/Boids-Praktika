@@ -12,5 +12,5 @@ int main(int argc, char* argv[]){
 
   Model mod(&fb, birdfilename, carfilename);
   mod.simulate();
-    return 0;
+  return 0;
 }

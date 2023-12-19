@@ -87,3 +87,12 @@ pos:(2 2)}
 
 {name:"Food"
 pos:(7 8)}
+
+{name:"Obstacle"
+pos:(10 10 5 1)}
+
+{name:"Obstacle"
+pos:(1 0 6.5 0.2)}
+
+{name:"Obstacle"
+pos:(-10 0 10 1)}

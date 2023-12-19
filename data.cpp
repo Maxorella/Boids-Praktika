@@ -16,6 +16,8 @@ vector<Vec3Cord > Data::carPosesInstruction; // - координаты маши�
 //int Data::pointCount;
  vector<Vec3Cord> Data::startFoodPoses;
  vector<Creature*> Data::FoodInMeadow;
+ vector<Vec4Cord> Data::startObstPoses; // - иниц коорд препятств
+ vector<Creature*> Data::obstacles; // - позиции препятствий
 
 
 
@@ -60,6 +62,29 @@ int Data::GetFoodCount(){return FoodInMeadow.size();}
 void Data::SetFood(Creature* v){FoodInMeadow.push_back(v); }
 
 Creature* Data::GetFoodPos(int pos){return FoodInMeadow[pos];}
+
+
+void Data::setObstStartPos(Vec4Cord x){
+    startObstPoses.push_back(x);
+}
+
+Vec4Cord Data::getObstStartPos(int ind){
+    return startObstPoses[ind];
+}
+
+
+Creature* Data::getObst(int ind){
+    return obstacles[ind];
+}
+
+
+void Data::setObst(Creature* ob){
+    obstacles.push_back(ob);
+}
+
+int Data::getObstCount(){
+    return startObstPoses.capacity();
+}
 
 bool Data::RemoveFood(Creature* ptr){
     for(int i=0;i<FoodInMeadow.size();i++){

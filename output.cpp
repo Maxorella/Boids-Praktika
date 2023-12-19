@@ -31,19 +31,12 @@ void OutputController::createSlice()
         Vec3Cord outFoodPos =dat.GetFoodPos(j)->getpos();
         outstrm << outFoodPos.x << " " << outFoodPos.y << std::endl;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for (int j=0; j < dat.getObstCount(); j++){
+        Creature* outObst = dat.getObst(j);
+        Vec3Cord outPos = outObst->getpos();
+        float  rad = outObst->getRadius();
+        outstrm << outPos.x << " " << outPos.y << " " << outPos.z << " " << rad << std::endl;
+    }
 
     outstrm.close();
     i++;

@@ -42,6 +42,7 @@ void Pigeon::behave()
     this->CarDodge();
     this->FlyHigher();
     this->LookPlaceLand();
+    this->AvoidObstacles();
 }
 
 void Pigeon::move()
@@ -50,8 +51,16 @@ void Pigeon::move()
     pos.x+=speed.x* dat.getTimeMultpl();
     pos.y+=speed.y* dat.getTimeMultpl();
     pos.z+=speed.z* dat.getTimeMultpl();
+    if(flying){// модификация для облёта препятствий
+        Creature* obst = fieldBeh->getHighestObstacle(this->pos,0.1);
+        if (obst!= nullptr){
+            if(obst->getpos().z > this->pos.z){
+                this->pos.z = obst->getpos().z+0.1;
+            }
+        }
+    }
     if(flying && pos.z <searchRad.StartHeight) {
-        pos.z = searchRad.StartHeight; // TODO защита от кротов
+        pos.z = searchRad.StartHeight; //  защита от кротов
     }
 }
 
@@ -78,11 +87,29 @@ void Pigeon::LookPlaceLand() {
 }
 
 
+void Pigeon::AvoidObstacles(){
+
+    vector<Creature*> obstles = fieldBeh->GetNearObstacles(this->pos,searchRad.ObstSearchRadius);
+    for(int i=0; i<obstles.capacity(); i++){
+        Creature* obst = obstles[i];
+        if(pos.x > obst->getpos().x){
+            speedVector.x+=  (searchRad.ObstSearchRadius-(dat.distance2d(this->pos,obst->getpos())-obst->getRadius()))*coef.ObstacleDodgeC;// расстояние до края!!
+        } else{
+            speedVector.x-=  (searchRad.ObstSearchRadius-(dat.distance2d(this->pos,obst->getpos())-obst->getRadius()))*coef.ObstacleDodgeC;// расстояние до края!!
+        }
+        if(pos.y > obst->getpos().y){
+            speedVector.y+=  (searchRad.ObstSearchRadius-(dat.distance2d(this->pos,obst->getpos())-obst->getRadius()))*coef.ObstacleDodgeC;// расстояние до края!!
+        }
+        else{
+            speedVector.y-=  (searchRad.ObstSearchRadius-(dat.distance2d(this->pos,obst->getpos())-obst->getRadius()))*coef.ObstacleDodgeC;// расстояние до края!!
+        }
+    }
+}
 
 void Pigeon::FlyHigher(){
     if (flying){
-        if (stress<coef.PorogStress+5){ // TODO: подправить снижение если стресс закончился
-            speedVector.z-= 0.15; // стремительно снижаемся
+        if (stress<coef.PorogStress+coef.StressGoEarthFast){ // TODO: подправить снижение если стресс закончился
+            speedVector.z-= coef.StremitelnoSniz; // стремительно снижаемся
         }
         speedVector.z += (stress-prevstress)*coef.StressHeightProp;
     }
@@ -96,7 +123,7 @@ void Pigeon::GoToFood() {
     if(nearFood== nullptr){
         return;
     }
-    if (!flying && dat.distance2d(nearFood->getpos(),pos)<0.3f){
+    if (!flying && dat.distance2d(nearFood->getpos(),pos)<0.2f){
         dat.RemoveFood(nearFood); // если пора скушать еду!!!
         return;
     }
@@ -113,7 +140,7 @@ void Pigeon::GoToFood() {
     govector.z = govector.z/lent; // получили единичный вектор направления
     speedVector.x+=coef.FoodCoefXY*govector.x;
     speedVector.y+=coef.FoodCoefXY*govector.y; // идём в сторону еды
-    if(flying && pos.z < 3){ // летим к еде если не слишком высоко // TODO подумать как лучше
+    if(flying && pos.z < searchRad.FlyToFoodHeight){ // летим к еде если не слишком высоко // TODO подумать как лучше
             speedVector.z += govector.z * coef.FoodFlyingCoef; //TODO могут стать кротами
     }
         //float procent = dat.distance(pos,nearFood->getpos())/searchRad.foodSearchRad; // насколько мы близки к еде от 0 до 1 НЕ НУЖНО
