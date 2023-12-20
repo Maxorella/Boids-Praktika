@@ -156,8 +156,8 @@ void InputController::parseObst(std::string  Mystr){
 
 
 void InputController::parseComas(string Mystr) {
-    cout << "HERE" << endl;
-    cout << Mystr << endl;
+    //cout << "HERE" << endl;
+    //cout << Mystr << endl;
     size_t found = Mystr.find("name:");
     Mystr = Mystr.substr(found + 5, string::npos);
     found = Mystr.find("\"");

@@ -175,7 +175,7 @@ void Pigeon::StressReducer() {
     if (stress<0){
         stress=0; // стресс меньше нуля не может быть
     }
-    cout << stress << endl;
+    //cout << stress << endl;
 
 }
 

@@ -14,13 +14,13 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b),
    // inputControl.getBirdFile(birdFileName);
    // inputControl.getCarFile(carFileName);
     inputControl.ReadInputFile(birdFileName);
-    cout<< endl<< "Ending" << endl;
+    //cout<< endl<< "Ending" << endl;
     for (int i =0; i<dat.getPigeonsCount(); i++){
-        cout << dat.getPigStartPos(i).x << dat.getPigStartPos(i).y << dat.getPigStartPos(i).z << endl;
+        //cout << dat.getPigStartPos(i).x << dat.getPigStartPos(i).y << dat.getPigStartPos(i).z << endl;
         Pigeon* pigeon =  new Pigeon(dat.getPigStartPos(i),b);
         dat.setPigToMeadow(pigeon);
     }
-    cout << dat.getCarPoint(0).x << dat.getCarPoint(0).y << dat.getCarPoint(0).z << endl;
+    //cout << dat.getCarPoint(0).x << dat.getCarPoint(0).y << dat.getCarPoint(0).z << endl;
 
     Car* carr = new Car(dat.getCarPoint(0));
     dat.setCar(carr);

@@ -14,7 +14,7 @@ Car::Car(Vec3Cord p){
     targetPos = p;
 }
 
-Car::~Car(){};
+Car::~Car(){}
 
 
 Vec3Cord Car::getpos(){
@@ -28,10 +28,10 @@ Vec3Cord Car::getspeed()
 void Car::behave(){
     speedVector.x=0;
     speedVector.y=0;
-    cout << pos.x<< " " << pos.y << " "<< pos.z << " cur car pos" <<endl;
-    cout << targetPos.x<< " " << targetPos.y << " "<< targetPos.z << " cur car pos" <<endl;
+    //cout << pos.x<< " " << pos.y << " "<< pos.z << " cur car pos" <<endl;
+    //cout << targetPos.x<< " " << targetPos.y << " "<< targetPos.z << " cur car pos" <<endl;
 
-    cout << dat.distance2d(pos,targetPos) << " distance" << endl;
+    //cout << dat.distance2d(pos,targetPos) << " distance" << endl;
     if(dat.distance(pos,targetPos)<0.2f){
         if (pointNumToReach<dat.getCarPointCount()){
             targetPos=dat.getCarPoint(pointNumToReach);
@@ -40,7 +40,7 @@ void Car::behave(){
     }
     speedVector.x=(targetPos.x-pos.x)/dat.distance(targetPos,pos);
     speedVector.y=(targetPos.y-pos.y)/dat.distance(targetPos,pos);
-    speed= speedVector;
+    speed=speedVector;
 }
 
 void Car::move(){
