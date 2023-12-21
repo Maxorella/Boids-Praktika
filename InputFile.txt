@@ -53,11 +53,25 @@ pos:(12 11 4)
 }
 
 {
+name:"Bird"
+pos:(1 1 10)
+}
+
+
+{
+name:"Bird"
+pos:(4 4 7)
+}
+
+
+{
+name:"Bird"
+pos:(-5 5 4)
+}
+
+{
 name:"Car"
-point:(2 10)
-point:(17 1)
-point:(2 10)
-point:(17 1)
+point:(-10 -5)
 }
 
 
@@ -94,5 +108,6 @@ pos:(10 10 5 1)}
 {name:"Obstacle"
 pos:(1 0 6.5 0.2)}
 
+
 {name:"Obstacle"
-pos:(-10 0 10 1)}
+pos:(-1 2 10 2)}

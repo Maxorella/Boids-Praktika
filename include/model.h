@@ -9,14 +9,13 @@
 class Model{
 private:
     string birdFileName;
-    string carFileName;
     OutputController outController;
     float timer=0;
     float sliceTime=60;
     Data dat;
     FieldBehaviour* behavController;
 public:
-    Model(FieldBehaviour*, string, string);
+    Model(FieldBehaviour*, string);
     void simulate();
     ~Model();
 };

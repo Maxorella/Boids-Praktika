@@ -9,7 +9,7 @@
 #include "obstacle.h"
 
 using namespace std;
-Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b), birdFileName(bfile), carFileName(cfile){ // работает
+Model::Model(FieldBehaviour* b, string bfile): behavController(b), birdFileName(bfile){ // работает
     InputController inputControl;
    // inputControl.getBirdFile(birdFileName);
    // inputControl.getCarFile(carFileName);
@@ -22,7 +22,7 @@ Model::Model(FieldBehaviour* b, string bfile, string cfile): behavController(b),
     }
     //cout << dat.getCarPoint(0).x << dat.getCarPoint(0).y << dat.getCarPoint(0).z << endl;
 
-    Car* carr = new Car(dat.getCarPoint(0));
+    Car* carr = new Car(dat.getCarPoint(0),b);
     dat.setCar(carr);
 
 

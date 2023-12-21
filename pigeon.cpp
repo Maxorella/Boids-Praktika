@@ -90,7 +90,7 @@ void Pigeon::LookPlaceLand() {
 void Pigeon::AvoidObstacles(){
 
     vector<Creature*> obstles = fieldBeh->GetNearObstacles(this->pos,searchRad.ObstSearchRadius);
-    for(int i=0; i<obstles.capacity(); i++){
+    for(int i=0; i<obstles.size(); i++){
         Creature* obst = obstles[i];
         if(pos.x > obst->getpos().x){
             speedVector.x+=  (searchRad.ObstSearchRadius-(dat.distance2d(this->pos,obst->getpos())-obst->getRadius()))*coef.ObstacleDodgeC;// расстояние до края!!

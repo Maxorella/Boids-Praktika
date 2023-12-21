@@ -83,7 +83,7 @@ void Data::setObst(Creature* ob){
 }
 
 int Data::getObstCount(){
-    return startObstPoses.capacity();
+    return startObstPoses.size();
 }
 
 bool Data::RemoveFood(Creature* ptr){
