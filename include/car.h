@@ -7,7 +7,7 @@ using namespace std;
 #include "creature.h"
 #include "data.h"
 #include "coord.h"
-
+#include "fieldb.h"
 
 class Car: public Creature
 {
@@ -18,12 +18,14 @@ private:
     Vec3Cord targetPos;
     Vec3Cord speedVector;
     Vec3Cord speed;
-    float speedCoef=0.1f;
+    float speedCoef=0.3f;
+    FieldBehaviour* fieldb;
+    bool GoGeomtr= false;
 public:
     Vec3Cord getpos();
     Vec3Cord getspeed();
-    Car();
-    Car(Vec3Cord);
+    //Car(FieldBehaviour*);
+    Car(Vec3Cord, FieldBehaviour*);
     virtual ~Car();
     void behave();
     void move();

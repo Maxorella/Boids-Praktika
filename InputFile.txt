@@ -1,0 +1,113 @@
+{
+name:"Field"
+up down right left
+Field:(-30 30 30 -30)
+}
+
+
+{
+name:"Bird"
+pos:(0 0 0)
+}
+
+{
+name:"Bird"
+pos:(12 0 0)
+}
+
+{
+name:"Bird"
+pos:(7 2 0)
+}
+
+{
+name:"Bird"
+pos:(2 6 0)
+}
+
+{
+name:"Bird"
+pos:(12 6 0)
+}
+
+{
+name:"Bird"
+pos:(7 8 0)
+}
+
+{
+name:"Bird"
+pos:(12 9 4)
+}
+
+
+{
+name:"Bird"
+pos:(15 9 4)
+}
+
+
+{
+name:"Bird"
+pos:(12 11 4)
+}
+
+{
+name:"Bird"
+pos:(1 1 10)
+}
+
+
+{
+name:"Bird"
+pos:(4 4 7)
+}
+
+
+{
+name:"Bird"
+pos:(-5 5 4)
+}
+
+{
+name:"Car"
+point:(-10 -5)
+}
+
+
+{name:"Food"
+pos:(2 2)}
+
+
+{name:"Food"
+pos:(10 2)}
+
+
+{name:"Food"
+pos:(7 5)}
+
+
+{name:"Food"
+pos:(5 6)}
+
+
+{name:"Food"
+pos:(10 7)}
+
+
+{name:"Food"
+pos:(2 2)}
+
+
+{name:"Food"
+pos:(7 8)}
+
+{name:"Obstacle"
+pos:(10 10 5 1)}
+
+{name:"Obstacle"
+pos:(1 0 6.5 0.2)}
+
+
+{name:"Obstacle"
+pos:(-1 2 10 2)}
