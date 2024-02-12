@@ -10,3 +10,4 @@ build.ninja
 Boids.exe
 .cmake
 Testing
+.idea
