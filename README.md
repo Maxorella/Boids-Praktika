@@ -11,14 +11,15 @@ Boids - это программа искусственной жизни, раз�
 
 ![OUT](https://github.com/Maxorella/Boids-Praktika/assets/90093089/9c025d3d-faa4-422e-9eb8-2995be086a71)
 
-## Установка
+## Установка и запуск
 ```html
 git https://github.com/Maxorella/Boids-Praktika
-cd Boids-Praktika
-cmake Boids-Praktika
-make .
+cd Boids-Praktika/src
+cmake .
+make -f Makefile
 ./Boids InputFile.txt
-python Graphs.py
+cd Boids-Praktika/src/out
+python3 Graphs.py
 ```
 ## Изменения
 - Добавлена еда, которую птицы пытаются съесть.
@@ -31,4 +32,5 @@ python Graphs.py
 - Git
 - C++17 или выше
 - Cmake
+- Make
 - Python 3.12.
