@@ -1,6 +1,5 @@
 CMakeFiles/3.27.5/CMakeCCompiler.cmake
 CMakeFiles
-build 
 .vscode
 cmake_install.cmake
 CMakeCache.txt
@@ -11,3 +10,8 @@ Boids.exe
 .cmake
 Testing
 .idea
+build/out/*.jpg
+build/out/*.txt
+build/out/OUT.gif
+build/Boids
+Makefile
