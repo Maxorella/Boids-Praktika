@@ -7,6 +7,7 @@ int main(int argc, char* argv[]){
     return (-1);
   }
   string birdfilename = argv[1];
+  birdfilename = "../input/" + birdfilename;
   FieldBehaviour fb;
 
   Model mod(&fb, birdfilename);

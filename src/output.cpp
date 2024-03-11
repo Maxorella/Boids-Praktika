@@ -1,5 +1,5 @@
 
-#include "Data.h"
+#include "data.h"
 #include "output.h"
 #include <iostream>
 #include <vector>
@@ -10,7 +10,7 @@ void OutputController::createSlice()
     Data dat;
     static int i = 1;
     Vec3Cord v;
-    ofstream outstrm("out/"+to_string(i)+".txt");
+    ofstream outstrm("../out/"+to_string(i)+".txt");
     if(!outstrm.is_open())
     {
         cout << "Error: file wasn't created." << endl;

@@ -19,8 +19,8 @@ Params = {
     'DotSize': 5
 }
 
-OutFilesList = glob.glob('[0-9]*.txt')
-OutFilesList.sort(key=lambda name: int(name.split('.')[0]))
+OutFilesList = glob.glob('../out/[0-9]*.txt')
+OutFilesList.sort(key=lambda name: name)
 
 for Filename in OutFilesList:
     file1 = open(Filename, 'r')
@@ -114,12 +114,11 @@ for Filename in OutFilesList:
     if Params['SaveRez']:
         plt.savefig(name, dpi=Params['Dpi'])
     plt.close(fig)
-
-OutFilesList = glob.glob('[0-9]*.jpg')
-OutFilesList.sort(key=lambda name: int(name.split('.')[0]))
+OutFilesList = glob.glob('../out/[0-9]*.jpg')
+OutFilesList.sort(key=lambda name: name)
 image_list = [Image.open(file) for file in OutFilesList]
 image_list[0].save(
-    'OUT.gif',
+    '../out/OUT.gif',
     save_all=True,
     append_images=image_list[1:],
     duration=500,

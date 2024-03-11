@@ -2,7 +2,7 @@
     #define INPClass
 #include <string>
 #include <iostream>
-#include "Data.h"
+#include "data.h"
 #include "coord.h"
 class InputController
 {
