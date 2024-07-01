@@ -18,8 +18,8 @@ mkdir build
 cd build
 cmake ..
 make
-./src/boids InputFile.txt
-python3 ../Graphs.py
+./boids ../input/InputFile.txt
+python3 ../Graphs.py ../out/ ../out/
 ```
 ## Изменения
 - Добавлена еда, которую птицы пытаются съесть.
