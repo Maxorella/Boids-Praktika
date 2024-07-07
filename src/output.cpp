@@ -13,7 +13,7 @@ void OutputController::createSlice(string filen)
     ofstream outstrm(filen+"/"+to_string(i)+".txt");
     if(!outstrm.is_open())
     {
-        cout << "Error: file wasn't created." << endl;
+        cout << "Error: file " + filen+"/"+to_string(i)+".txt "+ "wasn't created." << endl;
         return;
     }
 
