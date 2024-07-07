@@ -9,3 +9,4 @@ Testing
 build
 Makefile
 out
+.venv
