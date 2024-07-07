@@ -15,6 +15,7 @@ Boids - это программа искусственной жизни, раз�
 git https://github.com/Maxorella/Boids-Praktika
 cd Boids-Praktika
 mkdir build
+mkdir out
 cd build
 cmake ..
 make
