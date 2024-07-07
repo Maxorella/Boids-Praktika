@@ -4,7 +4,7 @@ class OutputController
 {
 public:
     OutputController(){};
-    void createSlice();
+    void createSlice(string);
 };
 
 #endif

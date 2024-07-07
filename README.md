@@ -18,7 +18,7 @@ mkdir build
 cd build
 cmake ..
 make
-./boids ../input/InputFile.txt
+./boids ../input/InputFile.txt ../out/
 python3 ../Graphs.py ../out/ ../out/
 ```
 ## Изменения

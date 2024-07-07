@@ -9,7 +9,7 @@
 #include "obstacle.h"
 
 using namespace std;
-Model::Model(FieldBehaviour* b, string bfile): behavController(b), birdFileName(bfile){ // работает
+Model::Model(FieldBehaviour* b, string bfile, string outfile): behavController(b), birdFileName(bfile), outfile(outfile){ // работает
     InputController inputControl;
    // inputControl.getBirdFile(birdFileName);
    // inputControl.getCarFile(carFileName);
@@ -50,7 +50,7 @@ void Model::simulate(){
         timer+=1;
         if (timer>=sliceTime){
             timer-=sliceTime;
-            outController.createSlice();
+            outController.createSlice(this->outfile);
         }
     }
     
