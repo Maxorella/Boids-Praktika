@@ -10,7 +10,7 @@ void OutputController::createSlice(string filen)
     Data dat;
     static int i = 1;
     Vec3Cord v;
-    ofstream outstrm(filen+to_string(i)+".txt");
+    ofstream outstrm(filen+"/"+to_string(i)+".txt");
     if(!outstrm.is_open())
     {
         cout << "Error: file wasn't created." << endl;
